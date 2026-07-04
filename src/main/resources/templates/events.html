@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* Add your custom CSS here */
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="header-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center">
+            <!-- Title -->
+            <h1 class="text-2xl font-bold mb-2">Events</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-6">
+        <!-- Display Events -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div th:each="event : ${events}" class="bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2" th:text="${event.title}"></div>
+                    <p class="text-gray-700 text-base" th:text="${event.description}"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Sugar Factory. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

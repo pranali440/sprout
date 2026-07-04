@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!--CSS -->
+    <style>
+        .header-bar { background-color: #EAF0F1; }
+        .footer-bar { background-color: #EAF0F1; }
+        .container-bg { background-color: #FDF2E9; }
+        .card-color-1 { background-color: #FFD700; }
+        .card-color-2 { background-color: #FF6347; }
+        .card-color-3 { background-color: #FF69B4; }
+        .card-color-4 { background-color: #ADFF2F; }
+        .card-color-5 { background-color: #00FFFF; }
+        .card-color-6 { background-color: #FFA500; }
+        .card-color-7 { background-color: #9370DB; }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="header-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center">
+            <!-- Title -->
+            <h1 class="text-2xl font-bold mb-2">Admin Dashboard</h1>
+            <!-- Date and Time -->
+            <div class="text-sm">
+                <span id="current-date"></span> | <span id="current-time"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-6">
+        <!-- Cards for Navigation -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Achievement Card -->
+            <a href="/admin/add_achievements" class="card card-color-1 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+                <h2 class="text-lg font-semibold text-white mb-4">Add Achievement</h2>
+                <img src="https://via.placeholder.com/150" alt="Add Achievement" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+            <!-- Event Card -->
+            <a href="/admin/admindash/events" class="card card-color-2 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+                <h2 class="text-lg font-semibold text-white mb-4">Add Event</h2>
+                <img src="https://via.placeholder.com/150" alt="Add Event" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+            <!-- Upcoming Events Card -->
+            <a href="upcoming_events.html" class="card card-color-3 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+                <h2 class="text-lg font-semibold text-white mb-4">Upcoming Events</h2>
+                <img src="https://via.placeholder.com/150" alt="Upcoming Events" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+            <!-- Add News Card -->
+            <a href="news.html" class="card card-color-4 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+                <h2 class="text-lg font-semibold text-white mb-4">Add News</h2>
+                <img src="https://via.placeholder.com/150" alt="Add News" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+            <!-- Add more cards for other functionalities -->
+            <a href="/admin/admindash/addAdmin" class="card card-color-5 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+                <h2 class="text-lg font-semibold text-white mb-4">Add Department Admin</h2>
+                <img src="https://via.placeholder.com/150" alt="Add Department Admin" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center">
+            <!-- Contact Info -->
+            <p>Contact us at: example@example.com</p>
+            <!-- Address -->
+            <p>123 Sugar Factory Road, Sugarland</p>
+            <!-- Copyright -->
+            <p>&copy; 2024 SPROUT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Function to get current date and time
+        function getCurrentDateTime() {
+            const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const currentTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+            document.getElementById('current-date').textContent = currentDate;
+            document.getElementById('current-time').textContent = currentTime;
+        }
+
+        // Update date and time every second
+        setInterval(getCurrentDateTime, 1000);
+
+        // Initial call to display current date and time
+        getCurrentDateTime();
+    </script>
+</body>
+
+</html>

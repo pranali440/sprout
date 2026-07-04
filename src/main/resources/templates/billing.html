@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cane Yard Department Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Add your custom CSS here */
+        /* Example: */
+        .header-bar { background-color: #EAF0F1; }
+        .footer-bar { background-color: #EAF0F1; }
+        .container-bg { background-color: #FDF2E9; }
+        .card-color-1 { background-color: #FFD700; }
+        .card-color-2 { background-color: #FF6347; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="header-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center">
+            <h1 class="text-2xl font-bold mb-2">Billing Department</h1>
+            <div class="text-sm">
+                <span id="current-date"></span> | <span id="current-time"></span>
+            </div>
+        </div>
+    </header>
+    <main class="container mx-auto py-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+			<a th:href="@{/todays-bookings/fetch/{bookingDate}(bookingDate=${#dates.format(#dates.createNow(),'yyyy-MM-dd')})}" class="card card-color-1 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+			                <h2 class="text-lg font-semibold text-white mb-4">Farmer Bill</h2>
+                <img src="https://via.placeholder.com/150" alt="Mark Attendance" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+            <a href="daily-cane-scheduling.html" class="card card-color-2 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+                <h2 class="text-lg font-semibold text-white mb-4">Salary Slip</h2>
+                <img src="https://via.placeholder.com/150" alt="Daily Cane Scheduling" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+            <a href="cane-weighing.html" class="card card-color-3 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
+                <h2 class="text-lg font-semibold text-white mb-4">Cane Weighing</h2>
+                <img src="https://via.placeholder.com/150" alt="Cane Weighing" class="w-20 h-20 object-cover rounded-full mb-4">
+            </a>
+        </div>
+    </main>
+    <footer class="footer-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Sugar Factory. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        function getCurrentDateTime() {
+            const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const currentTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+            document.getElementById('current-date').textContent = currentDate;
+            document.getElementById('current-time').textContent = currentTime;
+        }
+        setInterval(getCurrentDateTime, 1000);
+        getCurrentDateTime();
+    </script>
+</body>
+</html>

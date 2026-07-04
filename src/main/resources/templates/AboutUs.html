@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         /* Hover effect */
+         .fade-in-out {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .fade-in-out:hover {
+            opacity: 0.7; 
+        }
+
+        @keyframes scrollImages {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .scrolling-images {
+            display: inline-block;
+            animation: scrollImages 20s linear infinite; 
+        }
+
+        /* Style for each image */
+        .scrolling-images img {
+            width: 100px; 
+            height: auto; 
+            margin-right: 0.25rem; /* Adjust spacing between images */
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navbar -->
+    <div th:include="fragments/navbar :: navbar"></div>
+
+    <section class="container mx-auto bg-[#D8F3DC]">
+        <h1 class="text-3xl font-bold mb-6 justify-center items-center text-center text-dark-green">About Us</h1>
+        <div class="grid grid-rows-3 gap-2">
+          
+            <div class="flex items-center ">
+                <img src="/images/sugarmill.jpg" alt="Background" class="w-1/2 rounded-lg h-110 w-125 px-8 py-4 fade-in-out">
+                <div class="px-4 py-4">
+                    <h2 class="text-2xl font-bold mb-4 text-dark-green px-4 py-4 ">Our Background</h2>
+                    <p class="text-gray-700 font-serif">SPROUT's journey began in 2003 with the establishment of our state-of-the-art sugarcane factory in the heart of Ahilyanagar district. Founded by a team of visionary leaders with decades of experience in agriculture and technology, SPROUT was born out of a shared passion for innovation and sustainability.</p>
+                    <p class="text-gray-700 font-serif">Since our inception, we have been committed to revolutionizing the sugarcane industry by integrating advanced technologies, implementing sustainable farming practices, and optimizing production processes. Our factory utilizes cutting-edge equipment and methodologies to ensure the highest standards of quality, efficiency, and environmental stewardship.</p>
+                    <p class="text-gray-700 font-serif">Over the years, SPROUT has grown to become a cornerstone of the local community, providing employment opportunities, supporting economic growth, and contributing to the region's agricultural development. Our dedication to excellence and continuous improvement has earned us recognition as a leading producer of high-quality sugarcane products.</p>
+                    <p class="text-gray-700 font-serif">As we look to the future, SPROUT remains committed to driving innovation, promoting sustainability, and creating value for our customers, partners, and stakeholders. With a focus on technology-driven solutions and responsible practices, we are poised to lead the sugarcane industry into a new era of growth and prosperity.</p>
+                </div>
+            </div>
+      
+            <div class="bg-[url('/images/bg2.jpg')]">
+                 <div class="flex items-center animate-scroll-fade-in">
+              
+                
+              <div>
+                  <h2 class="text-2xl font-bold mb-4 text-dark-green text-center">Our Mission</h2>
+                  <div class="text-center">
+                      <p class="mb-2 font-serif text-gray-700">
+                          At SPROUT, our mission is to revolutionize the sugarcane industry through innovative solutions and sustainable practices. We are committed to empowering sugarcane farmers and industry stakeholders with knowledge, technology, and resources to enhance productivity, profitability, and environmental stewardship.
+                      </p>
+                      <p class="font-serif mb-6 text-gray-700">
+                          <strong>Our Vision:</strong> At SPROUT, we envision leading the sugarcane industry into a new era of growth and prosperity. We aspire to be recognized as pioneers in the field, driving positive change through advanced technologies, responsible practices, and a relentless pursuit of excellence.
+                      </p>
+                  </div>
+                  
+                  <!-- Container for scrolling images -->
+                  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 overflow-hidden scrolling-images px-4 py-4">
+      
+                      <!-- Add your images here -->
+                      <div>
+                          <img src="/images/sugarmill.jpg" alt="Sugarcane" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/bg.jpg" alt="Sugarcane Farm" class="inline-block w-125 h-110 ">
+                      </div>
+                      <div>
+                          <img src="/images/bg2.jpg" alt="Sugar Factory" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/co-92005.jpg" alt="Sugarcane Machinery" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/co-94012.jpg" alt="Sugarcane Harvest" class="inline-block w-125 h-110 ">
+                      </div>
+                      <div>
+                          <img src="/images/our-mission.jpg" alt="Sugarcane Processing" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image1.jpg" alt="Sugar Cane Mill" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image3.jpeg" alt="Sugarcane Products" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image4.jpeg" alt="Sugarcane Field" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image5.jpeg" alt="Sugarcane Plantation" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image6.jpeg" alt="Sugar Cane Harvesting" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/homefinalbg.jpg" alt="Sugar Refinery" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/sugarmill.jpg" alt="Sugarcane Industry" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/bg.jpg" alt="Sugarcane Production" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/bg2.jpg" alt="Sugarcane Factory" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/co-92005.jpg" alt="Sugar Refining" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/co-94012.jpg" alt="Sugarcane Juice" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/our-mission.jpg" alt="Sugar Production" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image1.jpg" alt="Sugar Mill" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image3.jpeg" alt="Sugarcane Harvester" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image4.jpeg" alt="Sugarcane Juice" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image5.jpeg" alt="Sugar Production" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/image6.jpeg" alt="Sugar Mill" class="inline-block w-125 h-110">
+                      </div>
+                      <div>
+                          <img src="/images/homefinalbg.jpg" alt="Sugarcane Harvester" class="inline-block w-125 h-110">
+                      </div>
+                      <!-- Add more images as needed -->
+                  </div>
+              </div>
+          </div>
+          </div>
+          
+           
+           <!-- Core Strengths Section -->
+           <div class="bg-[#1B4332] py-4 text-white">
+              <div class="container text-center">
+                  <h2 class="text-3xl font-bold py-8 px-4 mb-16 mt-16">Our Core Strengths</h2>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 py-6">
+                      <!-- Employees -->
+                      <div class="p-4 bg-white rounded-lg shadow-lg text-[#1B4332] hover:bg-green-100 transition duration-300">
+                          <h3 class="text-xl font-bold mb-4">Dedicated Employees</h3>
+                          <div class="flex items-center mt-4 mb-4">
+                              <span class="text-4xl font-bold">2500+</span>
+                          </div>
+                          <p class="text-gray-700">Our dedicated team of employees is the backbone of our operations. With their hard work and commitment, we ensure the smooth functioning of our organization and deliver exceptional results. Our employees undergo continuous training and development programs to stay updated with the latest industry trends and technologies, ensuring efficiency and effectiveness in their roles.</p>
+                        
+                      </div>
+                      <!-- Sugarcane Farmers -->
+                      <div class="p-4 bg-white rounded-lg shadow-lg text-[#1B4332] hover:bg-green-100 transition duration-300">
+                          <h3 class="text-xl font-bold mb-4">Cane Farmers</h3>
+                          <div class="flex items-center mt-4 mb-4">
+                              <span class="text-4xl font-bold">30000+</span>
+                          </div>
+                          <p class="text-gray-700">Our network of sugarcane farmers plays a vital role in our supply chain. We work closely with them to ensure sustainable farming practices and fair trade, supporting local communities and economies. By providing training, resources, and access to market opportunities, we empower cane farmers to improve their livelihoods and contribute to the growth of the agricultural sector.</p>
+                         
+                      </div>
+                      <!-- Member Areas -->
+                      <div class="p-4 bg-white rounded-lg shadow-lg text-[#1B4332] hover:bg-green-100 transition duration-300">
+                          <h3 class="text-xl font-bold mb-4">Member Areas</h3>
+                          <div class="flex items-center mt-4 mb-4">
+                              <span class="text-4xl font-bold">500+</span>
+                          </div>
+                          <p class="text-gray-700">Our member areas encompass various villages and regions where sugarcane cultivation is prevalent. By collaborating with local communities, we strive to foster sustainable agricultural practices and economic growth. Through initiatives such as farmer cooperatives and resource-sharing programs, we aim to enhance productivity, profitability, and resilience in these areas, ensuring long-term prosperity for all stakeholders.</p>
+                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          </div>
+          
+          
+          </div>
+          
+      </section>
+
+    <!-- Include Footer -->
+    <div th:include="fragments/footer :: footer"></div>
+
+</body>
+</html>

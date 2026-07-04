@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Include Navbar -->
+    <div th:include="fragments/navbar :: navbar"></div>
+
+    <!-- Home page -->
+    <section class="container mx-auto flex flex-col md:flex-row items-center py-16 px-4 md:px-8" style="background-image: url('/images/bg.jpg'); background-size: cover;">
+        <!-- Left Content: Information about SPROUT -->
+        <div class="md:w-1/2 md:pr-8">
+            <h1 class="text-4xl font-bold mb-4 text-black">Welcome to SPROUT</h1>
+            <p class="text-lg mb-6 text-dark-green leading-relaxed">SPROUT is revolutionizing the sugarcane industry through innovative solutions and sustainable practices. Our mission is to empower sugarcane farmers and industry stakeholders with knowledge, tools, and resources to enhance productivity, profitability, and environmental stewardship.</p>
+            <div class="flex">
+                <a href="/dashboard" class="inline-block bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-md font-semibold transition">Learn More</a>
+            </div>
+        </div>
+        <!-- Right Content: Image -->
+        <div class="md:w-1/2 mt-8 md:mt-0 flex justify-center md:justify-end">
+            <img src="/images/sugarmill.jpg" alt="SPROUT Image" class="w-full max-w-lg h-80 object-cover rounded-lg shadow-xl">
+        </div>
+    </section>
+
+    <!-- Additional Images Grid -->
+    <section class="container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 px-4 py-8" style="background-image: url('/images/bg.jpg'); background-size: cover;">
+        <img src="/images/image1.jpg" alt="Sugarcane Field" class="w-full h-40 object-cover rounded-lg shadow-xl">
+        <img src="/images/image3.jpeg" alt="Cane Transport" class="w-full h-40 object-cover rounded-lg shadow-xl">
+        <img src="/images/image4.jpeg" alt="Crushing Unit" class="w-full h-40 object-cover rounded-lg shadow-xl">
+        <img src="/images/image5.jpeg" alt="Lab Testing" class="w-full h-40 object-cover rounded-lg shadow-xl">
+        <img src="/images/image6.jpeg" alt="Quality Testing" class="w-full h-40 object-cover rounded-lg shadow-xl">
+        <img src="/images/bg2.jpg" alt="Sugarcane Farm" class="w-full h-40 object-cover rounded-lg shadow-xl">
+    </section>
+
+    <!-- Include Footer -->
+    <div th:include="fragments/footer :: footer"></div>
+</body>
+</html>

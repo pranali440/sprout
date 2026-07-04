@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Booking</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333333;
+        }
+        .form-row {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 48%;
+        }
+        label {
+            font-weight: bold;
+            color: #333333;
+            text-align: left;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #f7f7f7; /* Background color for disabled input fields */
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 3px; /* Adjusted spacing between buttons */
+        }
+        button.schedule {
+            background-color: #4CAF50; /* Green color for "Schedule" button */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>View Booking</h1>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Farmer ID:</label>
+            <input type="text" th:value="${farmer.farmerId}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Owner:</label>
+            <input type="text" th:value="${owner.name}" disabled>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Farmer Name:</label>
+            <input type="text" th:value="${farmer.name}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Owner Contact Info:</label>
+            <input type="text" th:value="${owner.contactInfo}" disabled>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Booking Date:</label>
+            <input type="text" th:value="${booking.bookingDate}" disabled>
+        </div>
+        <div class="form-column">
+            <label>No. of Trolleys:</label>
+            <input type="text" th:value="2" disabled> <!-- Placeholder value -->
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Location:</label>
+            <input type="text" th:value="${farmer.location}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Tractor:</label>
+            <input type="text" th:value="${tractor.name}" disabled>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <!-- Placeholder for Registration ID -->
+            <label>Booking ID:</label>
+            <input type="text" th:value="${booking.bookingId}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Driver:</label>
+            <input type="text" th:value="${driver.name}" disabled>
+        </div>
+    </div>
+    <div class="form-row">
+        <form id="scheduleForm" action="/schedule/schedule-confirm" method="post">
+            <input type="hidden" th:value="${booking.bookingId}" name="bookingId"> <!-- Hidden input to pass booking ID -->
+            <input type="hidden" th:value="${booking.bookingDate}" name="bookingDate"> <!-- Hidden input to store selected booking date -->
+            <input type="hidden" th:value="${booking.bookingTime}" name="bookingTime"> <!-- Hidden input to store selected booking time -->
+			<input type="hidden" th:value="${driver.driverId}" name="driverId">
+			<input type="hidden" th:value="${owner.ownerId}" name="ownerId">
+			<input type="hidden" th:value="${farmer.location}" name="location">
+			<input type="hidden" th:value="2" name="nooftrolleys">
+			<input type="hidden" th:value="${owner.ownerId}" name="ownerId">
+			<input type="hidden" th:value="${tractor.tractorId}" name="tractorId">
+			<input type="hidden" th:value="${farmer.farmerId}" name="farmerId"> <!-- Hidden input to store selected farmer ID -->
+            <button type="submit" class="schedule">Schedule</button> <!-- Changed button text to "Schedule" -->
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Weighing Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.7/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Your custom CSS styles here */
+        .weighing-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Farmer Weighing Form</h1>
+        <form action="/saveWeight" method="post">
+            <div class="mb-3">
+                <input type="hidden" id="farmerId" name="farmerId" th:value="${farmer.farmerId}">
+            </div>
+            <div class="mb-3">
+                <input type="hidden" id="scheduleId" name="scheduleId" th:value="${schedule.scheduleId}">
+            </div>
+            <div class="mb-3">
+                <label for="farmerName" class="form-label">Farmer Name:</label>
+                <input type="text" id="farmerName" name="farmerName" class="form-control" th:value="${farmer.name}" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="bookingDateTime" class="form-label">Booking Date & Time:</label>
+                <input type="text" id="bookingDateTime" name="bookingDateTime" class="form-control" th:value="${#dates.format(farmer.bookingDateTime, 'yyyy-MM-dd HH:mm')}" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="driverName" class="form-label">Driver Name:</label>
+                <input type="text" id="driverName" name="driverName" class="form-control" th:value="${driver.name}" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="tractor" class="form-label">Tractor:</label>
+                <input type="text" id="tractor" name="tractor" class="form-control" th:value="${tractor.model}" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="ownerName" class="form-label">Owner Name:</label>
+                <input type="text" id="ownerName" name="ownerName" class="form-control" th:value="${owner.name}" disabled>
+            </div>
+            <!-- Weighing container with attractive design -->
+            <div class="weighing-container bg-gray-100 p-4 rounded-lg">
+                <h2 class="text-lg mb-3">Weighing Details</h2>
+                <div class="mb-3">
+                    <label for="trolley1Weight" class="form-label">Trolley 1 Weight (tons):</label>
+                    <input type="text" id="trolley1Weight" name="trolley1Weight" class="form-control" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="trolley2Weight" class="form-label">Trolley 2 Weight (tons):</label>
+                    <input type="text" id="trolley2Weight" name="trolley2Weight" class="form-control" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="totalWeight" class="form-label">Total Weight (tons):</label>
+                    <input type="text" id="totalWeight" name="totalWeight" class="form-control" readonly>
+                </div>
+            </div>
+            <!-- Save button -->
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.7/dist/tailwind.min.js"></script>
+    <script>
+        // JavaScript to populate text fields with weights
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to update weight details
+            function updateWeightDetails() {
+                // Generate random weights in tons (replace with actual values)
+                var trolley1Weight = Math.random() * 10;
+                var trolley2Weight = Math.random() * 10;
+                var totalWeight = trolley1Weight + trolley2Weight;
+                // Populate text fields with weights
+                document.getElementById("trolley1Weight").value = trolley1Weight.toFixed(2);
+                document.getElementById("trolley2Weight").value = trolley2Weight.toFixed(2);
+                document.getElementById("totalWeight").value = totalWeight.toFixed(2);
+            }
+            // Call the function
+            updateWeightDetails();
+        });
+    </script>
+</body>
+</html>

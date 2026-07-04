@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Department Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #32CD32; /* Green */
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Include Navbar -->
+    <div id="navbar"></div>
+    <script>
+        // Load Navbar
+        const navbarElement = document.getElementById('navbar');
+        navbarElement.innerHTML = '<object type="text/html" data="navbar.html" style="width: 100%; height: 100%;"></object>';
+    </script>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8">
+        <!-- Dynamic Values: Load, Current, Voltage -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Load Card -->
+            <div class="bg-white rounded-md shadow-md p-4 hover:bg-green-100 cursor-pointer">
+                <h2 class="text-lg font-semibold mb-2">Load</h2>
+                <!-- Display dynamic load value -->
+                <p class="text-gray-700">Load Value: <span class="font-bold" id="loadValue">...</span> kW</p>
+            </div>
+
+            <!-- Current Card -->
+            <div class="bg-white rounded-md shadow-md p-4 hover:bg-green-100 cursor-pointer">
+                <h2 class="text-lg font-semibold mb-2">Current</h2>
+                <!-- Display dynamic current value -->
+                <p class="text-gray-700">Current Value: <span class="font-bold" id="currentValue">...</span> A</p>
+            </div>
+
+            <!-- Voltage Card -->
+            <div class="bg-white rounded-md shadow-md p-4 hover:bg-green-100 cursor-pointer">
+                <h2 class="text-lg font-semibold mb-2">Voltage</h2>
+                <!-- Display dynamic voltage value -->
+                <p class="text-gray-700">Voltage Value: <span class="font-bold" id="voltageValue">...</span> V</p>
+            </div>
+        </div>
+
+        <!-- Update Button -->
+        <div class="text-center mt-4">
+            <button onclick="updateTable()" class="bg-blue-500 text-white py-2 px-4 rounded">Update Table</button>
+        </div>
+
+        <!-- Hourly Records Table -->
+        <table class="w-full mt-4 border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2">Date</th>
+                    <th class="border border-gray-300 px-4 py-2">Time</th>
+                    <th class="border border-gray-300 px-4 py-2">Load</th>
+                    <th class="border border-gray-300 px-4 py-2">Current</th>
+                    <th class="border border-gray-300 px-4 py-2">Voltage</th>
+                </tr>
+            </thead>
+            <tbody id="hourlyRecordsTableBody"></tbody>
+        </table>
+
+        <!-- Store Form -->
+        <form id="storeForm" onsubmit="event.preventDefault(); submitForm()">
+            <div class="text-center mt-4">
+                <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">Store Data</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Function to generate dynamic numbers
+        function generateDynamicNumber() {
+            return Math.floor(Math.random() * 100); // Generate a random number between 0 and 100
+        }
+
+        // Function to update dynamic numbers every 2 seconds
+        setInterval(function() {
+            document.getElementById('loadValue').innerText = generateDynamicNumber();
+            document.getElementById('currentValue').innerText = generateDynamicNumber();
+            document.getElementById('voltageValue').innerText = generateDynamicNumber();
+        }, 2000);
+
+        // Function to get current date and time in AM/PM format
+        function getCurrentDateTime() {
+            const now = new Date();
+            const currentDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+            const currentTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            return { currentDate, currentTime };
+        }
+
+        // Function to update table with current data
+        function updateTable() {
+            const { currentDate, currentTime } = getCurrentDateTime();
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="border border-gray-300 px-4 py-2">${currentDate}</td>
+                <td class="border border-gray-300 px-4 py-2">${currentTime}</td>
+                <td class="border border-gray-300 px-4 py-2">${document.getElementById('loadValue').innerText}</td>
+                <td class="border border-gray-300 px-4 py-2">${document.getElementById('currentValue').innerText}</td>
+                <td class="border border-gray-300 px-4 py-2">${document.getElementById('voltageValue').innerText}</td>
+            `;
+
+            document.getElementById('hourlyRecordsTableBody').appendChild(row);
+        }
+
+        // Function to handle form submission
+        function submitForm() {
+            const { currentDate, currentTime } = getCurrentDateTime();
+            const formData = {
+                date: currentDate,
+                time: currentTime,
+                load: document.getElementById('loadValue').innerText,
+                current: document.getElementById('currentValue').innerText,
+                voltage: document.getElementById('voltageValue').innerText
+            };
+
+            // Send POST request with JSON data
+            fetch('/electrical/store-hourly-records', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([formData]) // Wrap formData in an array
+            })
+            .then(response => {
+                if (response.ok) {
+                    // If request is successful, show success message
+                    showSuccessMessage();
+                } else {
+                    // If request fails, handle error
+                    console.error('Failed to store data:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Function to show success message
+        function showSuccessMessage() {
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.textContent = 'Record saved successfully';
+            successMessage.classList.add('success-message');
+            document.body.appendChild(successMessage);
+
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMessage.remove();
+            }, 3000);
+        }
+    </script>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+    <script>
+        // Load Footer
+        const footerElement = document.getElementById('footer');
+        footerElement.innerHTML = '<object type="text/html" data="footer.html" style="width: 100%; height: 100%;"></object>';
+    </script>
+</body>
+</html>

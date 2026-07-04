@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Today's Cane Weighing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2 {
+            text-align: center;
+            color: #333333;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #ddd;
+        }
+        
+        .view-form-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        
+        .view-form-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Today's Cane Weighing</h1>
+        <table>
+            <tr>
+                <th>Sr. No</th>
+                <th>Farmer ID</th>
+                <th>Farmer Name</th>
+                <th>Booking Time</th>
+                <th>Booking Date</th>
+                <th>Location</th>
+                <th>Action</th>
+            </tr>
+            <tbody>
+                <tr th:each="schedule, rowStat : ${schedules}">
+                    <td th:text="${rowStat.index + 1}"></td>
+                    <td th:text="${schedule.farmer.farmerId}"></td>
+                    <td th:text="${schedule.farmer.name}"></td>
+                    <td th:text="${schedule.bookingTime}"></td>
+                    <td th:text="${#dates.format(#temporals.format(schedule.bookingDate),'dd-MM-yyyy')}"></td>
+                    <td th:text="${schedule.location}"></td>
+                    <td>
+                        <form th:action="@{/weighingForm}" th:method="post">
+                            <input type="hidden" th:name="farmerId" th:value="${schedule.farmer.farmerId}">
+							<input type="hidden" th:name="driverId" th:value="${schedule.driver.driverId}">
+							<input type="hidden" th:name="tractorId" th:value="${schedule.tractor.tractorId}">
+							<input type="hidden" th:name="ownerId" th:value="${schedule.owner.ownerId}">
+							<button type="submit" class="view-form-btn">View Form</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

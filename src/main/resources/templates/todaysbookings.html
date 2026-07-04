@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Today's Cane Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2 {
+            text-align: center;
+            color: #333333;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #ddd;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style for the "View" link */
+        .view-link {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Today's Cane Bookings - <span id="clock"></span></h1>
+        <h2>Date: <span th:text="${#dates.format(#dates.createNow(),'dd-MM-yyyy')}"></span></h2>
+        <table>
+            <tr>
+                <th>Sr. No</th>
+                <th>Farmer ID</th>
+                <th>Farmer Name</th>
+                <th>Booking Time</th>
+                <th>Booking Date</th>
+                <th>Location</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="booking, rowStat : ${Bookings}">
+                <td th:text="${rowStat.index + 1}"></td>
+                <td th:text="${booking.farmerId}"></td>
+                <td th:text="${booking.farmerName}"></td>
+                <td th:text="${booking.bookingTime}"></td>
+				<td th:text="${#dates.format(#temporals.format(booking.bookingDate),'dd-MM-yyyy')}"></td>
+                <td th:text="${booking.location}"></td>
+                <td>
+					<a th:if="${booking.status == 'pending'}" th:href="@{'/booking/' + ${booking.id} + '/view?location=' + ${booking.location} + '&farmerId=' + ${booking.farmerId} + '&bookingDate=' + ${booking.bookingDate} +'&bookingTime=' + ${booking.bookingTime}}">View</a>
+					<span th:if="${booking.status == 'completed'}">Completed</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

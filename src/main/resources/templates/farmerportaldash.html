@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        nav ul li {
+            float: left;
+        }
+
+        nav ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #111;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        section:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Farmer Portal</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="/todays-bookings/book">Book Your Cane</a></li>
+            <li><a href="/analytics">Analytics</a></li>
+            <li><a href="#bills">Bills</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="book">
+            <h2>Book Your Cane</h2>
+            <p>Content for booking cane goes here...</p>
+        </section>
+        
+        <section id="analytics">
+            <h2>Analytics</h2>
+            <p>Analytics content goes here...</p>
+        </section>
+        
+        <section id="bills">
+            <h2>Bills</h2>
+            <p>Bills content goes here...</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Farmer Portal. All rights reserved.</p>
+    </footer>
+</body>
+</html>

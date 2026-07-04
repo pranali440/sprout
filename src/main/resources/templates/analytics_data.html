@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Sugar Factory Data</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Add Sugar Factory Data</h1>
+        <form action="/admin/add_data" method="post">
+            <!-- Season and Total Producer Members -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="season">Season:</label>
+                    <input type="text" class="form-control" id="season" name="season">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="totalProducerMembers">Total Producer Members:</label>
+                    <input type="number" class="form-control" id="totalProducerMembers" name="totalProducerMembers">
+                </div>
+            </div>
+
+            <!-- Producer Members SC and Producer Members ST -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="producerMembersSC">Producer Members SC:</label>
+                    <input type="number" class="form-control" id="producerMembersSC" name="producerMembersSC">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="producerMembersST">Producer Members ST:</label>
+                    <input type="number" class="form-control" id="producerMembersST" name="producerMembersST">
+                </div>
+            </div>
+
+            <!-- Total Non-Producer Members and Non-Producer Members SC -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="totalNonProducerMembers">Total Non-Producer Members:</label>
+                    <input type="number" class="form-control" id="totalNonProducerMembers" name="totalNonProducerMembers">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="nonProducerMembersSC">Non-Producer Members SC:</label>
+                    <input type="number" class="form-control" id="nonProducerMembersSC" name="nonProducerMembersSC">
+                </div>
+            </div>
+
+            <!-- Non-Producer Members ST and Total Members -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nonProducerMembersST">Non-Producer Members ST:</label>
+                    <input type="number" class="form-control" id="nonProducerMembersST" name="nonProducerMembersST">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="totalMembers">Total Members:</label>
+                    <input type="number" class="form-control" id="totalMembers" name="totalMembers">
+                </div>
+            </div>
+
+            <!-- Nominated Members and Area of Operation Karvir Taluka -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nominatedMembers">Nominated Members:</label>
+                    <input type="number" class="form-control" id="nominatedMembers" name="nominatedMembers">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="areaOfOperationKarvirTaluka">Area of Operation Karvir Taluka:</label>
+                    <input type="number" class="form-control" id="areaOfOperationKarvirTaluka" name="areaOfOperationKarvirTaluka">
+                </div>
+            </div>
+
+            <!-- Area of Operation Radhanagari Taluka and Villages Within Area -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="areaOfOperationRadhanagariTaluka">Area of Operation Radhanagari Taluka:</label>
+                    <input type="number" class="form-control" id="areaOfOperationRadhanagariTaluka" name="areaOfOperationRadhanagariTaluka">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="villagesWithinArea">Villages Within Area:</label>
+                    <input type="number" class="form-control" id="villagesWithinArea" name="villagesWithinArea">
+                </div>
+            </div>
+
+            <!-- Villages Outside Maharashtra and Villages Outside Area Maharashtra -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="villagesOutsideMaharashtra">Villages Outside Maharashtra:</label>
+                    <input type="number" class="form-control" id="villagesOutsideMaharashtra" name="villagesOutsideMaharashtra">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="villagesOutsideAreaMaharashtra">Villages Outside Area Maharashtra:</label>
+                    <input type="number" class="form-control" id="villagesOutsideAreaMaharashtra" name="villagesOutsideAreaMaharashtra">
+                </div>
+            </div>
+
+            <!-- Total Villages and Sanctioned Cane Crushing Capacity -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="totalVillages">Total Villages:</label>
+                    <input type="number" class="form-control" id="totalVillages" name="totalVillages">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="sanctionedCaneCrushingCapacity">Sanctioned Cane Crushing Capacity:</label>
+                    <input type="number" class="form-control" id="sanctionedCaneCrushingCapacity" name="sanctionedCaneCrushingCapacity">
+                </div>
+            </div>
+
+            <!-- Installed Cane Crushing Capacity and Cane Crushing Season Start Date -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="installedCaneCrushingCapacity">Installed Cane Crushing Capacity:</label>
+                    <input type="number" class="form-control" id="installedCaneCrushingCapacity" name="installedCaneCrushingCapacity">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="caneCrushingSeasonStartDate">Cane Crushing Season Start Date:</label>
+                    <input type="date" class="form-control" id="caneCrushingSeasonStartDate" name="caneCrushingSeasonStartDate">
+                </div>
+            </div>
+
+            <!-- Cane Crushing Season End Date and Area Within Zone -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="caneCrushingSeasonEndDate">Cane Crushing Season End Date:</label>
+                    <input type="date" class="form-control" id="caneCrushingSeasonEndDate" name="caneCrushingSeasonEndDate">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="areaWithinZone">Area Within Zone:</label>
+                    <input type="number" class="form-control" id="areaWithinZone" name="areaWithinZone">
+                </div>
+            </div>
+
+            <!-- Area Outside Zone and Area Maharashtra Government -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="areaOutsideZone">Area Outside Zone:</label>
+                    <input type="number" class="form-control" id="areaOutsideZone" name="areaOutsideZone">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="areaMaharashtraGovernment">Area Maharashtra Government:</label>
+                    <input type="number" class="form-control" id="areaMaharashtraGovernment" name="areaMaharashtraGovernment">
+                </div>
+            </div>
+
+            <!-- Area Outside Maharashtra and Total Area -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="areaOutsideMaharashtra">Area Outside Maharashtra:</label>
+                    <input type="number" class="form-control" id="areaOutsideMaharashtra" name="areaOutsideMaharashtra">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="totalArea">Total Area:</label>
+                    <input type="number" class="form-control" id="totalArea" name="totalArea">
+                </div>
+            </div>
+
+            <!-- Produced Sugar and Raw Sugar -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="producedSugar">Produced Sugar:</label>
+                    <input type="number" class="form-control" id="producedSugar" name="producedSugar">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="rawSugar">Raw Sugar:</label>
+                    <input type="number" class="form-control" id="rawSugar" name="rawSugar">
+                </div>
+            </div>
+
+            <!-- Average Sugar Recovery Percentage and Molasses Produced -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="averageSugarRecoveryPercentage">Average Sugar Recovery Percentage:</label>
+                    <input type="number" class="form-control" id="averageSugarRecoveryPercentage" name="averageSugarRecoveryPercentage" step="0.01">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="molassesProduced">Molasses Produced:</label>
+                    <input type="number" class="form-control" id="molassesProduced" name="molassesProduced">
+                </div>
+            </div>
+
+            <!-- Molasses Produced Average Per Cane In Tons and Cane Recovery Rate -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="molassesProducedAveragePerCaneInTons">Molasses Produced Average Per Cane In Tons:</label>
+                    <input type="number" class="form-control" id="molassesProducedAveragePerCaneInTons" name="molassesProducedAveragePerCaneInTons" step="0.01">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="caneRecoveryRate">Cane Recovery Rate:</label>
+                    <input type="number" class="form-control" id="caneRecoveryRate" name="caneRecoveryRate" step="0.01">
+                </div>
+            </div>
+
+            <!-- Bagasse Percentage Average and Cane Crushed Member Within Factory Area -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="bagassePercentageAverage">Bagasse Percentage Average:</label>
+                    <input type="number" class="form-control" id="bagassePercentageAverage" name="bagassePercentageAverage" step="0.01">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="caneCrushedMemberWithinFactoryArea">Cane Crushed Member Within Factory Area:</label>
+                    <input type="number" class="form-control" id="caneCrushedMemberWithinFactoryArea" name="caneCrushedMemberWithinFactoryArea" step="0.01">
+                </div>
+            </div>
+
+            <!-- Cane Crushed Non-Member Within Factory Area and Cane Crushed Other Area In State -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="caneCrushedNonMemberWithinFactoryArea">Cane Crushed Non-Member Within Factory Area:</label>
+                    <input type="number" class="form-control" id="caneCrushedNonMemberWithinFactoryArea" name="caneCrushedNonMemberWithinFactoryArea" step="0.01">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="caneCrushedOtherAreaInState">Cane Crushed Other Area In State:</label>
+                    <input type="number" class="form-control" id="caneCrushedOtherAreaInState" name="caneCrushedOtherAreaInState" step="0.01">
+                </div>
+            </div>
+
+            <!-- Cane Crushed Outside State and Total Cane Crushed Area -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="caneCrushedOutsideState">Cane Crushed Outside State:</label>
+                    <input type="number" class="form-control" id="caneCrushedOutsideState" name="caneCrushedOutsideState" step="0.01">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="totalCaneCrushedArea">Total Cane Crushed Area:</label>
+                    <input type="number" class="form-control" id="totalCaneCrushedArea" name="totalCaneCrushedArea" step="0.01">
+                </div>
+            </div>
+
+            <!-- Cane Crushed Within Factory Area and Cane Used For Jaggery -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="caneCrushedWithinFactoryArea">Cane Crushed Within Factory Area:</label>
+                    <input type="number" class="form-control" id="caneCrushedWithinFactoryArea" name="caneCrushedWithinFactoryArea" step="0.01">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="caneUsedForJaggery">Cane Used For Jaggery:</label>
+                    <input type="number" class="form-control" id="caneUsedForJaggery" name="caneUsedForJaggery" step="0.01">
+                </div>
+            </div>
+
+            <!-- Cane Used For Seeds -->
+            <div class="form-group">
+                <label for="caneUsedForSeeds">Cane Used For Seeds:</label>
+                <input type="number" class="form-control" id="caneUsedForSeeds" name="caneUsedForSeeds" step="0.01">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

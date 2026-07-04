@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugar Factory Dashboard</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        /* Additional colors for cards */
+        .card-crushing { background-color: #FF6961; }
+        .card-caneyard { background-color: #77DD77; }
+        .card-electrical { background-color: #AEC6CF; }
+        .card-billing { background-color: #F49AC2; }
+        .card-office { background-color: #FFB347; }
+        .card-transportation { background-color: #CB99C9; }
+        .card-mill { background-color: #B39EB5; }
+
+        /* Light color for header bar */
+        .header-bar { background-color: #C3E6CB; }
+        .header-text { color: #2E3A23; }
+
+        /* Skin tone color for background */
+        .bg-skin { background-color: #FCE5CD; }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="header-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center">
+            <!-- Title -->
+            <h1 class="text-2xl font-bold mb-2 header-text">SPROUT Department Dashboard</h1>
+            <!-- Date and Time -->
+            <div class="text-sm">
+                <span id="current-date"></span> | <span id="current-time"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-6 bg-skin">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Department Cards -->
+            <a href="/deptlogin" class="card card-crushing">
+                <div class="bg-red-500 p-6 rounded-lg shadow-md flex flex-col items-center">
+                    <img src="/images/image3.jpeg" alt="Crushing Department" class="w-24 h-24 object-cover mb-4">
+                    <h2 class="text-lg font-semibold text-white">Crushing</h2>
+                </div>
+            </a>
+            <!-- Add more department cards here following the same pattern -->
+
+            <a href="/deptlogin" class="card card-caneyard">
+                <div class="bg-green-500 p-6 rounded-lg shadow-md flex flex-col items-center">
+                    <img src="/images/caneyard.jpeg" alt="Caneyard Department" class="w-24 h-24 object-cover mb-4">
+                    <h2 class="text-lg font-semibold text-white">Caneyard</h2>
+                </div>
+            </a>
+
+            <a href="/deptlogin" class="card card-electrical">
+                <div class="bg-blue-500 p-6 rounded-lg shadow-md flex flex-col items-center">
+                    <img src="/images/electrical.jpeg" alt="Electrical Department" class="w-24 h-24 object-cover mb-4">
+                    <h2 class="text-lg font-semibold text-white">Electrical</h2>
+                </div>
+            </a>
+
+            <a href="#" class="card card-billing">
+                <div class="bg-purple-500 p-6 rounded-lg shadow-md flex flex-col items-center">
+                    <img src="/images/bill.jpg" alt="Billing Department" class="w-24 h-24 object-cover mb-4">
+                    <h2 class="text-lg font-semibold text-white">Billing</h2>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- Copyright -->
+    <footer class="bg-gray-900 text-white py-4 text-center">
+        <div class="container mx-auto">
+            <p>&copy; 2025 SPROUT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Function to get current date and time
+        function getCurrentDateTime() {
+            const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const currentTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+            document.getElementById('current-date').textContent = currentDate;
+            document.getElementById('current-time').textContent = currentTime;
+        }
+
+        // Update date and time every second
+        setInterval(getCurrentDateTime, 1000);
+
+        // Initial call to display current date and time
+        getCurrentDateTime();
+    </script>
+</body>
+
+</html>

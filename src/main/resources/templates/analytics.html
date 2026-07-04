@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart', 'bar', 'table']});
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            drawPieChart();
+            drawBarChart();
+            drawTable();
+        }
+
+        function drawPieChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Intercrop', 'Seed rate of intercrop'],
+                ['Wheat', 75],
+                ['Chickpea', 50],
+                ['Mustard', 3],
+                ['Garlic', 250],
+                ['Onion', 8]
+            ]);
+
+            var options = {
+                title: 'Seed rate of intercrop',
+                titleTextStyle: {
+                    fontSize: 12, // Change font size as needed
+                    bold: true // Make the title bold
+                }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawBarChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Country', 'Sugarcane production yield'],
+                ['Brazil', 70.64],
+                ['India', 70.25],
+                ['China', 71.33],
+                ['Thailand', 76.64],
+                ['Pakistan', 55.08],
+                ['Mexico', 74.39],
+                ['Indonesia', 60.50],
+                ['Philippines', 57.93],
+                ['Australia', 81.33],
+                ['Argentina', 66.54]
+            ]);
+
+            var options = {
+                title: 'Top ten sugarcane growing countries in the world',
+                chartArea: { width: '50%' },
+                hAxis: {
+                    title: 'Top ten sugarcane growing countries in the world',
+                    minValue: 0
+                },
+                vAxis: {
+                    title: 'Country'
+                }
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawTable() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'State');
+            data.addColumn('number', 'Number of irrigations required');
+            data.addColumn('number', 'Average Sugarcane Yield (t/ha)');
+            data.addColumn('number', 'Amount of irrigation water required to produce 1.0 kg sugarcane (kg)');
+            data.addRows([
+                ['Punjab', 13, 72, 135],
+                ['Haryana', 13, 76, 133],
+                ['Rajasthan', 16, 67.4, 174],
+                ['Uttar Pradesh', 8, 61.7, 99],
+                ['Bihar', 7, 55.2, 95],
+                ['West Bengal', 7, 115, 48],
+                ['Assam', 6, 36.1, 122],
+                ['Gujarat', 25, 70.5, 260],
+                ['Madhya Pradesh', 16, 45.8, 276],
+                ['Maharashtra', 32, 76.1, 292],
+                ['Karnataka', 32, 85.5, 266],
+                ['Andhra Pradesh', 28, 79.4, 262],
+                ['Kerala', 9, 91.5, 67],
+                ['Tamil Nadu', 25, 105, 181]
+            ]);
+
+            var options = {
+                title: 'State-wise irrigation requirement in sugarcane cultivation',
+                titleTextStyle: {
+                    fontSize: 12, // Change font size as needed
+                    bold: true // Make the title bold
+                }
+            };
+
+            var table = new google.visualization.Table(document.getElementById('table_div'));
+
+            table.draw(data, {
+                showRowNumber: true,
+                width: '100%',
+                height: '100%'
+            });
+        }
+
+        function printPage() {
+            window.print();
+        }
+    </script>
+
+    <style>
+        /* Additional styles can be added here if needed */
+    </style>
+</head>
+<body>
+    <!-- Print Button -->
+    <div class="py-4 text-center">
+        <button onclick="printPage()">Print or Save as PDF</button>
+    </div>
+
+    <div>
+        <!-- Pie Chart -->
+        <div id="piechart" style="width: 50%; height: 300px; float: left;"></div>
+        <!-- Bar Chart -->
+        <div id="barchart" style="width: 50%; height: 300px; float: left;"></div>
+    </div>
+
+    <!-- Table -->
+    <div id="table_div"></div>
+</body>
+</html>

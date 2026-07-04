@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+	<div th:fragment="footer">
+    <footer class="bg-[#081C15] text-white py-8 px-4">
+        <div class="container  grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- About SPROUT -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">About SPROUT</h3>
+                <p class="text-sm">SPROUT is dedicated to advancing the sugarcane industry through innovative solutions and technology, promoting sustainable practices and maximizing utilization.</p>
+            </div>
+            <!-- Head Office -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Head Office</h3>
+                <p class="text-sm">123 Sugarcane Avenue<br>Cityville, Country</p>
+            </div>
+            <!-- Office Hours -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Office Hours</h3>
+                <p class="text-sm">Monday - Friday: 9:00 AM - 5:00 PM<br>Saturday - Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="mt-8 text-center">
+            <p>&copy; 2024 SPROUT. All rights reserved.</p>
+        </div>
+      </footer>
+	  </div>
+</body>
+</html>

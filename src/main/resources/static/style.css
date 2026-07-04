@@ -1,0 +1,50 @@
+/* Custom styles */
+
+/* Container styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Crop container styles */
+.crop-container {
+    transition: transform 0.3s ease-in-out;
+}
+
+.crop-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.crop-container img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.crop-container:hover img {
+    transform: scale(1.1);
+}
+
+.crop-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.crop-container p {
+    margin-bottom: 8px;
+}
+
+/* Header styles */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+}
+
+/* Footer styles */
+footer {
+    background-color: #f2f2f2;
+    color: #777;
+    padding: 10px;
+    text-align: center;
+}

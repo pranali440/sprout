@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Today's Cane For Crushing</title>
+    <style>
+        /* Styles remain unchanged */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Today's Cane Weighing</h1>
+        <table>
+            <tr>
+                <th>Sr. No</th>
+                <th>Farmer ID</th>
+                <th>Farmer Name</th>
+                <th>Booking Time</th>
+                <th>Booking Date</th>
+                <th>Location</th>
+                <th>Action</th>
+            </tr>
+            <tbody>
+                <tr th:each="schedule, rowStat : ${schedules}">
+                    <td th:text="${rowStat.index + 1}"></td>
+                    <td th:text="${schedule.farmer.id}"></td>
+                    <td th:text="${schedule.farmer.user.name}"></td>
+                    <td th:text="${schedule.bookingTime}"></td>
+                    <td th:text="${#dates.format(#temporals.format(schedule.bookingDate),'dd-MM-yyyy')}"></td>
+                    <td th:text="${schedule.location}"></td>
+                    <td>
+                        <form th:action="@{/markAsCompleted}" th:method="post" style="display: inline;">
+                            <input type="hidden" th:name="scheduleId" th:value="${schedule.id}">
+                            <button type="submit" class="view-form-btn">Mark as Completed</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

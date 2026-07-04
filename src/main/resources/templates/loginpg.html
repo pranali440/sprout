@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="container mx-auto py-8" style="background-image: url('images/homefinalbg.jpg');">
+        <div class="max-w-md mx-auto p-6 rounded-lg shadow-md bg-[#D8F3DC]">
+            <h2 class="text-2xl font-bold mb-4">Login</h2>
+            <!-- Login Form -->
+            <form action="#" method="POST">
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-600">Email</label>
+                    <input type="email" id="email" name="email" class="form-input mt-1 w-full" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-4">
+                    <label for="phone" class="block text-gray-600">Phone</label>
+                    <input type="tel" id="phone" name="phone" class="form-input mt-1 w-full" required>
+                </div>
+                <!-- Address -->
+                <div class="mb-4">
+                    <label for="address" class="block text-gray-600">Address</label>
+                    <input type="text" id="address" name="address" class="form-input mt-1 w-full" required>
+                </div>
+                <!-- Password -->
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-600">Password</label>
+                    <input type="password" id="password" name="password" class="form-input mt-1 w-full" required>
+                </div>
+                <!-- Login Options -->
+                <div class="mb-4">
+                    <p class="text-gray-600 mb-2">Login as:</p>
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio text-blue-600" name="login-option" value="worker" checked>
+                        <span class="ml-2">Worker</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" class="form-radio text-blue-600" name="login-option" value="owner">
+                        <span class="ml-2">Owner</span>
+                    </label>
+                </div>
+                <!-- Login Button -->
+                <div class="mb-4">
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-4 px-4 rounded-md w-full">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

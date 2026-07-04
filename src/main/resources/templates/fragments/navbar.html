@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            animation: marquee-animation 20s linear infinite;
+        }
+
+        @keyframes marquee-animation {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+	<div th:fragment="navbar">
+    <nav class="bg-[#95D5B2] mx-auto">
+        <div class="container mx-auto flex justify-between items-center py-3 px-4">
+            <div>
+                <span class="text-dark-green font-extrabold text-3xl tracking-wide">SPROUT</span>
+                <p class="text-dark-green text-lg">Sugarcane PROduction Utilization and Technology</p>
+            </div>
+
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-white hover:text-[#1B4332]">Home</a></li>
+                <li><a href="/aboutus" class="text-white hover:text-[#1B4332]">About Us</a></li>
+                <li><a href="/contactus" class="text-white hover:text-[#1B4332]">Contact Us</a></li>
+				<li><a href="/deptdashboard" class="text-white hover:text-[#1B4332]">Department</a></li>
+                <li><a href="/login" class="text-white hover:text-[#1B4332] font-semibold">Login</a></li>
+                <li><a href="/register" class="text-white hover:text-[#1B4332] font-semibold">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Notification bar -->
+    <div class="bg-lime-50 py-2 px-4 mb-0 text-center text-sm text-black marquee">
+        <p class="marquee-content">This is an important announcement. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod porttitor augue id congue.</p>
+    </div>
+	</div>
+</body>
+</html>

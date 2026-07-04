@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Booking</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333333;
+        }
+        .form-row {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 48%;
+        }
+        label {
+            font-weight: bold;
+            color: #333333;
+            text-align: left;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 3px; /* Adjusted spacing between buttons */
+        }
+        button.reject {
+            background-color: #ff3333;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>View Booking</h1>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Farmer ID:</label>
+            <input type="text" th:value="${farmer.farmerId}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Owner:</label>
+            <select id="ownerSelect" th:field="${owner}">
+                <option th:each="owner : ${owners}" th:value="${owner.ownerId}" th:text="${owner.name}" th:data-contact-info="${owner.contactInfo}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Farmer Name:</label>
+            <input type="text" th:value="${booking.farmerName}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Owner Contact Info:</label>
+            <input type="text" id="ownerContactInfo" th:value="${owner.contactInfo}" disabled>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Booking Date:</label>
+            <input type="text" th:value="${booking.bookingDate}" disabled>
+        </div>
+        <div class="form-column">
+            <label>No. of Trolleys:</label>
+            <input type="text" th:value="2">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <label>Location:</label>
+            <input type="text" th:value="${booking.location}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Tractor:</label>
+            <select id="tractorSelect" th:field="${tractor}">
+                <option th:each="tractor : ${tractors}" th:value="${tractor.tractorId}" th:text="${tractor.name}" th:data-owner-id="${tractor.owner.ownerId}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-column">
+            <!-- Placeholder for Registration ID -->
+            <label>Registration ID:</label>
+            <input type="text" th:value="${booking.id}" disabled>
+        </div>
+        <div class="form-column">
+            <label>Driver:</label>
+            <select id="driverSelect" th:field="${driver}">
+                <option th:each="driver : ${drivers}" th:value="${driver.driverId}" th:text="${driver.name}" th:data-owner-id="${driver.owner.ownerId}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <form id="bookingForm" action="/confirm-booking" method="post">
+            <input type="hidden" th:value="${booking.id}" name="bookingId"> <!-- Hidden input to pass booking ID -->
+            <input type="hidden" id="selectedOwnerId" name="ownerId"> <!-- Hidden input to store selected owner ID -->
+            <input type="hidden" id="selectedDriverId" name="driverId"> <!-- Hidden input to store selected driver ID -->
+            <input type="hidden" id="selectedTractorId" name="tractorId"> <!-- Hidden input to store selected tractor ID -->
+			<input type="hidden" th:value="${booking.bookingDate}" name="bookingDate"> <!-- Hidden input to store selected tractor ID -->
+			<input type="hidden" th:value="${booking.bookingTime}" name="bookingTime"> <!-- Hidden input to store selected tractor ID -->
+			<input type="hidden" th:value="${farmer.farmerId}" name="farmerId"> <!-- Hidden input to store selected tractor ID -->
+            <button type="submit">Confirm</button>
+        </form>
+        <!-- Reject button form -->
+    </div>
+</div>
+
+<script th:inline="javascript">
+    var ownerSelect = document.getElementById('ownerSelect');
+    var ownerContactInfo = document.getElementById('ownerContactInfo');
+    var driverSelect = document.getElementById('driverSelect');
+    var tractorSelect = document.getElementById('tractorSelect');
+    var bookingForm = document.getElementById('bookingForm');
+    var selectedOwnerId = document.getElementById('selectedOwnerId');
+    var selectedDriverId = document.getElementById('selectedDriverId');
+    var selectedTractorId = document.getElementById('selectedTractorId');
+
+    ownerSelect.addEventListener('change', function() {
+        var selectedOwner = ownerSelect.options[ownerSelect.selectedIndex];
+        ownerContactInfo.value = selectedOwner.dataset.contactInfo;
+        selectedOwnerId.value = selectedOwner.value;
+
+        // Filter driver options based on selected owner
+        Array.from(driverSelect.options).forEach(function(option) {
+            option.style.display = option.dataset.ownerId === selectedOwner.value ? 'block' : 'none';
+        });
+
+        // Filter tractor options based on selected owner
+        Array.from(tractorSelect.options).forEach(function(option) {
+            option.style.display = option.dataset.ownerId === selectedOwner.value ? 'block' : 'none';
+        });
+    });
+
+    bookingForm.addEventListener('submit', function() {
+        // Set the selected driver and tractor IDs in the form before submission
+        selectedDriverId.value = driverSelect.value;
+        selectedTractorId.value = tractorSelect.value;
+    });
+</script>
+</body>
+</html>
