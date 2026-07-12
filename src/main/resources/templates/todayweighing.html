@@ -82,7 +82,7 @@
                     <td th:text="${schedule.farmer.farmerId}"></td>
                     <td th:text="${schedule.farmer.name}"></td>
                     <td th:text="${schedule.bookingTime}"></td>
-                    <td th:text="${#dates.format(#temporals.format(schedule.bookingDate),'dd-MM-yyyy')}"></td>
+                    <td th:text="${#temporals.format(schedule.bookingDate,'dd-MM-yyyy')}"></td>
                     <td th:text="${schedule.location}"></td>
                     <td>
                         <form th:action="@{/weighingForm}" th:method="post">

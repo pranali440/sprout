@@ -3,6 +3,7 @@ package com.Sprout.app.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Sprout.app.Entity.Farmer;
@@ -15,11 +16,15 @@ public class FarmerService {
 	 
     @Autowired
     private FarmerRepository farmerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     public Integer registerFarmer(Farmer farmer) {
     	 if (farmer.getEmail() == null || farmer.getEmail().isEmpty()) {
              throw new IllegalArgumentException("Email is required.");
          }
+        farmer.setPassword(passwordEncoder.encode(farmer.getPassword()));
         Farmer savedFarmer = farmerRepository.save(farmer);
         return savedFarmer.getFarmerId();
     }
@@ -31,7 +36,7 @@ public class FarmerService {
 
         Farmer farmer = farmerRepository.findByEmail(email);
 
-        if (farmer != null && farmer.getPassword().equals(password)) {
+        if (farmer != null && passwordEncoder.matches(password, farmer.getPassword())) {
             return ResponseEntity.ok("Login successful");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
@@ -41,6 +46,10 @@ public class FarmerService {
 
     public Farmer findById(Integer farmerId) {
         return farmerRepository.findById(farmerId).orElse(null);
+    }
+
+    public Farmer findByEmail(String email) {
+        return farmerRepository.findByEmail(email);
     }
 
     public Farmer updateFarmer(Integer farmerId, Farmer updatedFarmer) {
@@ -53,5 +62,3 @@ public class FarmerService {
         }
     }
    }
-
-

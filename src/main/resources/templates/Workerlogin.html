@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmer Login - SPROUT</title>
+    <title>Worker Login - SPROUT</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#D8F3DC]">
@@ -11,14 +11,14 @@
         <div class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
 
             <!-- Left branded panel -->
-            <div class="md:w-1/2 text-white p-10 flex flex-col justify-between relative" style="background-image: linear-gradient(rgba(27,67,50,0.85), rgba(27,67,50,0.85)), url('/images/image1.jpg'); background-size: cover; background-position: center;">
+            <div class="md:w-1/2 text-white p-10 flex flex-col justify-between relative" style="background-image: linear-gradient(rgba(27,67,50,0.85), rgba(27,67,50,0.85)), url('/images/caneyard.jpeg'); background-size: cover; background-position: center;">
                 <div>
                     <span class="text-3xl font-extrabold tracking-wide">SPROUT</span>
                     <p class="text-sm text-[#D8F3DC] mt-1">Sugarcane PROduction Utilization and Technology</p>
                 </div>
                 <div class="mt-10">
-                    <h2 class="text-2xl font-bold mb-2">Farmer Access</h2>
-                    <p class="text-sm text-[#D8F3DC] leading-relaxed">Book cane pickups, track deliveries, and stay updated on your crop status &mdash; all from your farmer account.</p>
+                    <h2 class="text-2xl font-bold mb-2">Worker Access</h2>
+                    <p class="text-sm text-[#D8F3DC] leading-relaxed">Log in to manage your department's daily operations, records, and schedules.</p>
                 </div>
                 <a href="/" class="text-sm text-[#95D5B2] hover:text-white mt-10 inline-block">&larr; Back to Home</a>
             </div>
@@ -26,12 +26,12 @@
             <!-- Right form panel -->
             <div class="md:w-1/2 p-10 flex flex-col justify-center">
                 <div class="text-center mb-6">
-                    <div class="w-14 h-14 mx-auto rounded-full bg-[#D8F3DC] flex items-center justify-center text-2xl mb-3">🌾</div>
-                    <h2 class="text-2xl font-bold text-[#1B4332]">Farmer Login</h2>
-                    <p class="text-sm text-gray-500">Sign in to your farmer account</p>
+                    <div class="w-14 h-14 mx-auto rounded-full bg-[#D8F3DC] flex items-center justify-center text-2xl mb-3">👷</div>
+                    <h2 class="text-2xl font-bold text-[#1B4332]">Worker Login</h2>
+                    <p class="text-sm text-gray-500">Sign in with your email</p>
                 </div>
 
-                <form method="post" action="/farmerlogin">
+                <form method="post" action="/workerlogin">
                     <div th:if="${error}" class="bg-red-100 text-red-700 text-sm rounded px-3 py-2 mb-4" th:text="${error}"></div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-semibold mb-2" for="email">Email</label>
@@ -44,7 +44,7 @@
                     <button type="submit" class="w-full bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-bold py-3 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B4332]">Sign In</button>
                 </form>
 
-                <p class="text-sm text-center text-gray-500 mt-6">New farmer? <a href="/farmerRegister" class="text-[#1B4332] hover:underline font-semibold">Register here</a></p>
+                <p class="text-sm text-center text-gray-500 mt-6">New worker? <a href="/workerRegister" class="text-[#1B4332] hover:underline font-semibold">Register here</a></p>
             </div>
         </div>
     </div>

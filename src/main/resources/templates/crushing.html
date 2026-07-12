@@ -26,7 +26,7 @@
                     <td th:text="${schedule.farmer.id}"></td>
                     <td th:text="${schedule.farmer.user.name}"></td>
                     <td th:text="${schedule.bookingTime}"></td>
-                    <td th:text="${#dates.format(#temporals.format(schedule.bookingDate),'dd-MM-yyyy')}"></td>
+                    <td th:text="${#temporals.format(schedule.bookingDate,'dd-MM-yyyy')}"></td>
                     <td th:text="${schedule.location}"></td>
                     <td>
                         <form th:action="@{/markAsCompleted}" th:method="post" style="display: inline;">

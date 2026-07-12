@@ -1,72 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="text"][disabled] {
-            background-color: #f4f4f4;
-        }
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Book a Pickup - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <form action="/todays-bookings/book" method="post">
-        <label for="farmerId">Farmer ID:</label>
-        <input type="text" id="farmerId" name="farmerId" placeholder="Enter Farmer ID" required>
-        
-        <label for="farmerName">Farmer Name:</label>
-        <input type="text" id="farmerName" name="farmerName" placeholder="Enter Farmer Name" required>
-        
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" placeholder="Enter Location" required>
-        
-        <label for="bookingDate">Booking Date (yyyy-MM-dd):</label>
-        <input type="text" id="bookingDate" name="bookingDate" placeholder="Enter Booking Date" required>
-        
-        <label for="bookingTime">Booking Time (HH:mm:ss):</label>
-        <input type="text" id="bookingTime" name="bookingTime" placeholder="Enter Booking Time" required>
-        
-        <input type="submit" value="Submit Booking">
-    </form>
+<body class="bg-[#D8F3DC] min-h-screen">
+    <div class="min-h-screen flex items-center justify-center px-4 py-10">
+        <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+            <!-- Header -->
+            <div class="bg-[#1B4332] px-8 py-6 text-white">
+                <div class="w-12 h-12 rounded-full bg-[#D8F3DC] flex items-center justify-center text-2xl mb-3">🚚</div>
+                <h2 class="text-2xl font-bold">Book a Cane Pickup</h2>
+                <p class="text-sm text-[#D8F3DC] mt-1">Enter your details to schedule today's booking</p>
+            </div>
+
+            <div class="p-8">
+                <div th:if="${error}" class="bg-red-100 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3 mb-5" th:text="${error}"></div>
+
+                <form method="post" action="/todays-bookings/book" novalidate>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="farmerEmail">Your Email</label>
+                        <input
+                            class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
+                            id="farmerEmail" name="farmerEmail" type="email"
+                            th:value="${farmerEmail}"
+                            placeholder="you@example.com" required>
+                        <p class="text-xs text-gray-400 mt-1">We'll match this to your farmer account automatically.</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="location">Pickup Location</label>
+                        <input
+                            class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
+                            id="location" name="location" type="text"
+                            th:value="${location}"
+                            placeholder="Field / block name" required maxlength="120">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="bookingDate">Booking Date</label>
+                            <input
+                                class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
+                                id="bookingDate" name="bookingDate" type="date"
+                                th:value="${bookingDate}"
+                                required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="bookingTime">Booking Time</label>
+                            <input
+                                class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
+                                id="bookingTime" name="bookingTime" type="time"
+                                th:value="${bookingTime}"
+                                required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-bold py-3 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B4332]">
+                        Submit Booking
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Light client-side guardrails (the server re-checks everything regardless)
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const dateInput = document.getElementById('bookingDate');
+            if (dateInput.value) {
+                const today = new Date().toISOString().split('T')[0];
+                if (dateInput.value < today) {
+                    e.preventDefault();
+                    alert('Booking date can\'t be in the past.');
+                }
+            }
+        });
+    </script>
 </body>
 </html>

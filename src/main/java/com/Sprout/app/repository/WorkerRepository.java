@@ -14,5 +14,5 @@ import com.Sprout.app.Entity.Worker;
 public interface WorkerRepository extends JpaRepository<Worker, Integer> {
     Worker findByEmail(String email); 
     Optional<Worker> findById(Integer workerId);
+    java.util.List<Worker> findByApprovedFalse();
 }
-

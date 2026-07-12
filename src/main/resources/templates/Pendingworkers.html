@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Workers - SPROUT</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .header-bar { background-color: #EAF0F1; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="header-bar text-gray-800 py-4">
+        <div class="container mx-auto text-center relative">
+            <a href="/admin/admindash" class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+            <h1 class="text-2xl font-bold">Pending Worker Approvals</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-8 px-4">
+        <div th:if="${#lists.isEmpty(pendingWorkers)}" class="text-center py-12 text-gray-500">
+            <p class="text-lg font-semibold">No pending worker registrations.</p>
+            <p class="text-sm mt-1">New self-registered workers will show up here for approval.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(pendingWorkers)}" class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 border-b">
+                    <tr>
+                        <th class="py-3 px-4">Worker ID</th>
+                        <th class="py-3 px-4">Name</th>
+                        <th class="py-3 px-4">Email</th>
+                        <th class="py-3 px-4">Department</th>
+                        <th class="py-3 px-4">Location</th>
+                        <th class="py-3 px-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="worker : ${pendingWorkers}" class="border-b hover:bg-gray-50">
+                        <td class="py-3 px-4" th:text="${worker.workerId}"></td>
+                        <td class="py-3 px-4" th:text="${worker.name}"></td>
+                        <td class="py-3 px-4" th:text="${worker.email}"></td>
+                        <td class="py-3 px-4" th:text="${worker.deptName}"></td>
+                        <td class="py-3 px-4" th:text="${worker.location}"></td>
+                        <td class="py-3 px-4">
+                            <form th:action="@{/admin/admindash/approveWorker/{id}(id=${worker.workerId})}" method="post" class="inline">
+                                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white text-sm py-1 px-3 rounded mr-2">Approve</button>
+                            </form>
+                            <form th:action="@{/admin/admindash/rejectWorker/{id}(id=${worker.workerId})}" method="post" class="inline">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded">Reject</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

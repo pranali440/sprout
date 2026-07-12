@@ -85,8 +85,18 @@ import jakarta.persistence.*;
 			this.email = email;
 		}
 
+	    @Column(name = "approved")
+	    private boolean approved = false;
+
+	    public boolean isApproved() {
+	        return approved;
+	    }
+
+	    public void setApproved(boolean approved) {
+	        this.approved = approved;
+	    }
+
 		 public Worker() {
 		    }
 
 	}
-
