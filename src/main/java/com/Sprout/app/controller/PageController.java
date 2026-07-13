@@ -23,6 +23,8 @@ import com.Sprout.app.Service.AdminService;
 import com.Sprout.app.Service.FarmerService;
 import com.Sprout.app.Service.WorkerService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class PageController {
 	
@@ -47,6 +49,12 @@ public class PageController {
     @GetMapping("/")
     public String index() {
         return "index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 
     @GetMapping("/aboutus")
@@ -140,12 +148,14 @@ public class PageController {
     }
 
     @PostMapping("/login")
-    public String commonLogin(@RequestParam String email, @RequestParam String password, Model model) {
+    public String commonLogin(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
         String id = email == null ? "" : email.trim();
 
         // Try farmer accounts first
         Farmer farmer = farmerService.findByEmail(id);
         if (farmer != null && passwordEncoder.matches(password, farmer.getPassword())) {
+            session.setAttribute("farmerEmail", farmer.getEmail());
+            session.setAttribute("farmerName", farmer.getName());
             return "redirect:/farmerportaldash";
         }
 

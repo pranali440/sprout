@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bills - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#D8F3DC] min-h-screen">
+    <div class="min-h-screen px-4 py-10 flex flex-col items-center">
+        <div class="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+            <!-- Header -->
+            <div class="bg-[#1B4332] px-8 py-6 text-white flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold">My Bills</h2>
+                    <p class="text-sm text-[#D8F3DC] mt-1" th:if="${farmerName}" th:text="'Weighing history for ' + ${farmerName}"></p>
+                </div>
+                <a href="/farmerportaldash" class="text-sm bg-[#D8F3DC] text-[#1B4332] font-semibold px-4 py-2 rounded-lg hover:bg-white transition">Back</a>
+            </div>
+
+            <div class="p-8">
+                <div th:if="${#lists.isEmpty(bills)}" class="text-center text-gray-500 py-10">
+                    No bills yet. Once your cane has been weighed at the yard, your bill will show up here.
+                </div>
+
+                <div th:if="${not #lists.isEmpty(bills)}" class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-[#D8F3DC] text-[#1B4332] text-sm">
+                                <th class="px-4 py-3 rounded-l-lg">Bill ID</th>
+                                <th class="px-4 py-3">Trolley 1 (kg)</th>
+                                <th class="px-4 py-3">Trolley 2 (kg)</th>
+                                <th class="px-4 py-3 rounded-r-lg">Total Weight (kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="bill : ${bills}" class="border-b border-gray-100 text-sm">
+                                <td class="px-4 py-3 font-semibold text-[#1B4332]" th:text="${bill.id}"></td>
+                                <td class="px-4 py-3" th:text="${bill.trolley1Weight}"></td>
+                                <td class="px-4 py-3" th:text="${bill.trolley2Weight}"></td>
+                                <td class="px-4 py-3 font-semibold" th:text="${bill.totalWeight}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

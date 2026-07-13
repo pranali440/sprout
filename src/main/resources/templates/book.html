@@ -5,37 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book a Pickup - SPROUT</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+        .stalk-pattern {
+            background-image: repeating-linear-gradient(
+                115deg,
+                rgba(216, 243, 220, 0.07) 0px,
+                rgba(216, 243, 220, 0.07) 2px,
+                transparent 2px,
+                transparent 34px
+            );
+        }
+    </style>
 </head>
-<body class="bg-[#D8F3DC] min-h-screen">
+<body class="min-h-screen bg-[#F3F8F4]">
     <div class="min-h-screen flex items-center justify-center px-4 py-10">
-        <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden grid md:grid-cols-5">
 
-            <!-- Header -->
-            <div class="bg-[#1B4332] px-8 py-6 text-white">
-                <div class="w-12 h-12 rounded-full bg-[#D8F3DC] flex items-center justify-center text-2xl mb-3">🚚</div>
-                <h2 class="text-2xl font-bold">Book a Cane Pickup</h2>
-                <p class="text-sm text-[#D8F3DC] mt-1">Enter your details to schedule today's booking</p>
+            <!-- Left: context panel -->
+            <div class="md:col-span-2 bg-[#1B4332] stalk-pattern relative text-white px-8 py-10 flex flex-col justify-between overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-[#2d6a4f] opacity-40"></div>
+                <div class="absolute -left-16 top-24 w-40 h-40 rounded-full bg-[#95D5B2] opacity-10"></div>
+
+                <div class="relative">
+                    <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-[#95D5B2] mb-6">
+                        <span class="w-6 h-px bg-[#95D5B2]"></span> Farmer Portal
+                    </span>
+                    <h1 class="font-display text-3xl md:text-[2.4rem] leading-tight font-semibold mb-4">
+                        Book today's<br/>cane pickup
+                    </h1>
+                    <p class="text-sm text-[#D8F3DC] leading-relaxed max-w-xs">
+                        Tell us where and when, and we'll line up a slot for the collection truck. It only takes a minute.
+                    </p>
+                </div>
+
+                <div class="relative mt-10 space-y-5">
+                    <div class="flex items-start gap-3">
+                        <div class="w-7 h-7 shrink-0 rounded-full bg-[#95D5B2] text-[#1B4332] flex items-center justify-center text-xs font-bold">1</div>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Enter your details</p>
+                            <p class="text-xs text-[#D8F3DC] mt-0.5">Field location, date and time</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-7 h-7 shrink-0 rounded-full bg-[#95D5B2] text-[#1B4332] flex items-center justify-center text-xs font-bold">2</div>
+                        <div>
+                            <p class="text-sm font-semibold text-white">We confirm the slot</p>
+                            <p class="text-xs text-[#D8F3DC] mt-0.5">Your booking is added to today's schedule</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-7 h-7 shrink-0 rounded-full bg-[#95D5B2] text-[#1B4332] flex items-center justify-center text-xs font-bold">3</div>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Truck arrives on time</p>
+                            <p class="text-xs text-[#D8F3DC] mt-0.5">Have your cane ready at the location</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="p-8">
-                <div th:if="${error}" class="bg-red-100 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3 mb-5" th:text="${error}"></div>
+            <!-- Right: form -->
+            <div class="md:col-span-3 p-8 md:p-10">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="font-display text-xl font-semibold text-[#1B4332]">Pickup details</h2>
+                        <p class="text-sm text-gray-500 mt-0.5">All fields are required</p>
+                    </div>
+                    <div class="w-11 h-11 rounded-2xl bg-[#D8F3DC] flex items-center justify-center text-xl">🚚</div>
+                </div>
+
+                <div th:if="${error}" class="flex items-start gap-2 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-5">
+                    <span class="mt-0.5">⚠️</span>
+                    <span th:text="${error}"></span>
+                </div>
 
                 <form method="post" action="/todays-bookings/book" novalidate>
 
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="farmerEmail">Your Email</label>
-                        <input
-                            class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
-                            id="farmerEmail" name="farmerEmail" type="email"
-                            th:value="${farmerEmail}"
-                            placeholder="you@example.com" required>
-                        <p class="text-xs text-gray-400 mt-1">We'll match this to your farmer account automatically.</p>
+                    <div class="mb-5 bg-[#D8F3DC]/60 border border-[#95D5B2]/50 rounded-xl px-4 py-3 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-600">Booking as</p>
+                            <p class="text-sm font-semibold text-[#1B4332]" th:text="${farmerName} + ' (' + ${farmerEmail} + ')'"></p>
+                        </div>
+                        <a href="/logout" class="text-xs text-[#1B4332] font-medium hover:underline whitespace-nowrap">Not you?</a>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-semibold mb-2" for="location">Pickup Location</label>
                         <input
-                            class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
+                            class="shadow-sm appearance-none border border-gray-300 rounded-xl w-full py-2.5 px-3.5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent transition"
                             id="location" name="location" type="text"
                             th:value="${location}"
                             placeholder="Field / block name" required maxlength="120">
@@ -45,7 +105,7 @@
                         <div>
                             <label class="block text-gray-700 text-sm font-semibold mb-2" for="bookingDate">Booking Date</label>
                             <input
-                                class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
+                                class="shadow-sm appearance-none border border-gray-300 rounded-xl w-full py-2.5 px-3.5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent transition"
                                 id="bookingDate" name="bookingDate" type="date"
                                 th:value="${bookingDate}"
                                 required>
@@ -53,14 +113,14 @@
                         <div>
                             <label class="block text-gray-700 text-sm font-semibold mb-2" for="bookingTime">Booking Time</label>
                             <input
-                                class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent"
+                                class="shadow-sm appearance-none border border-gray-300 rounded-xl w-full py-2.5 px-3.5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent transition"
                                 id="bookingTime" name="bookingTime" type="time"
                                 th:value="${bookingTime}"
                                 required>
                         </div>
                     </div>
 
-                    <button type="submit" class="w-full bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-bold py-3 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B4332]">
+                    <button type="submit" class="w-full bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-bold py-3 rounded-xl transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B4332]">
                         Submit Booking
                     </button>
                 </form>

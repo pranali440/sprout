@@ -18,6 +18,8 @@ import com.Sprout.app.Entity.TodaysBooking;
 import com.Sprout.app.Service.FarmerService;
 import com.Sprout.app.Service.TodaysBookingService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -39,65 +41,79 @@ public class TodaysBookingController {
     }
 
    @GetMapping("/book")
-   public String showBookForm(Model model) {
+   public String showBookForm(Model model, HttpSession session) {
+	   String farmerEmail = (String) session.getAttribute("farmerEmail");
+	   if (farmerEmail == null) {
+		   // Not logged in as a farmer - send them to log in first, then back here
+		   return "redirect:/farmerLogin";
+	   }
 	   model.addAttribute("todaysBooking", new TodaysBooking());
+	   model.addAttribute("farmerEmail", farmerEmail);
+	   model.addAttribute("farmerName", session.getAttribute("farmerName"));
 	   return "book";
    }
     
-    @PostMapping("/book")
-    public String saveTodaysBooking(@RequestParam String farmerEmail,
-                                                           @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate bookingDate,
-                                                           @RequestParam(required = false) @DateTimeFormat(pattern = "HH:mm") LocalTime bookingTime,
-                                                           @RequestParam String location,
-                                                           Model model) {
+   @PostMapping("/book")
+   public String saveTodaysBooking(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate bookingDate,
+                                                          @RequestParam(required = false) @DateTimeFormat(pattern = "HH:mm") LocalTime bookingTime,
+                                                          @RequestParam String location,
+                                                          Model model,
+                                                          HttpSession session) {
 
-        String email = farmerEmail == null ? "" : farmerEmail.trim();
-        String loc = location == null ? "" : location.trim();
+       String email = (String) session.getAttribute("farmerEmail");
+       if (email == null) {
+           // Session expired or they navigated here directly without logging in
+           return "redirect:/farmerLogin";
+       }
 
-        // Keep whatever the person typed so the form can be redisplayed on error
-        model.addAttribute("farmerEmail", email);
-        model.addAttribute("location", loc);
-        model.addAttribute("bookingDate", bookingDate);
-        model.addAttribute("bookingTime", bookingTime);
+       String loc = location == null ? "" : location.trim();
 
-        if (email.isEmpty() || !email.contains("@")) {
-            model.addAttribute("error", "Please enter a valid email address.");
-            return "book";
-        }
+       // Keep whatever the person typed so the form can be redisplayed on error
+       model.addAttribute("farmerEmail", email);
+       model.addAttribute("farmerName", session.getAttribute("farmerName"));
+       model.addAttribute("location", loc);
+       model.addAttribute("bookingDate", bookingDate);
+       model.addAttribute("bookingTime", bookingTime);
 
-        Farmer farmer = farmerService.findByEmail(email);
-        if (farmer == null) {
-            model.addAttribute("error", "We couldn't find a farmer account with that email. Please check and try again, or register first.");
-            return "book";
-        }
+       Farmer farmer = farmerService.findByEmail(email);
+       if (farmer == null) {
+           // Their account was removed after logging in - clear the stale session
+           session.invalidate();
+           return "redirect:/farmerLogin";
+       }
 
-        if (loc.isEmpty()) {
-            model.addAttribute("error", "Please enter a pickup location.");
-            return "book";
-        }
+       if (loc.isEmpty()) {
+           model.addAttribute("error", "Please enter a pickup location.");
+           return "book";
+       }
 
-        if (bookingDate == null) {
-            model.addAttribute("error", "Please choose a booking date.");
-            return "book";
-        }
+       if (bookingDate == null) {
+           model.addAttribute("error", "Please choose a booking date.");
+           return "book";
+       }
 
-        if (bookingDate.isBefore(LocalDate.now())) {
-            model.addAttribute("error", "Booking date can't be in the past.");
-            return "book";
-        }
+       if (bookingDate.isBefore(LocalDate.now())) {
+           model.addAttribute("error", "Booking date can't be in the past.");
+           return "book";
+       }
 
-        if (bookingTime == null) {
-            model.addAttribute("error", "Please choose a booking time.");
-            return "book";
-        }
+       if (bookingTime == null) {
+           model.addAttribute("error", "Please choose a booking time.");
+           return "book";
+       }
 
-        TodaysBooking todaysBooking = new TodaysBooking();
-        todaysBooking.setFarmerId(farmer.getFarmerId().longValue());
-        todaysBooking.setFarmerName(farmer.getName());
-        todaysBooking.setBookingDate(bookingDate);
-        todaysBooking.setBookingTime(bookingTime);
-        todaysBooking.setLocation(loc);
-        todaysBookingService.saveTodaysBooking(todaysBooking);
-        return "booksuccess";
-    }
+       TodaysBooking todaysBooking = new TodaysBooking();
+       todaysBooking.setFarmerId(farmer.getFarmerId().longValue());
+       todaysBooking.setFarmerName(farmer.getName());
+       todaysBooking.setBookingDate(bookingDate);
+       todaysBooking.setBookingTime(bookingTime);
+       todaysBooking.setLocation(loc);
+       todaysBookingService.saveTodaysBooking(todaysBooking);
+
+       model.addAttribute("farmerName", farmer.getName());
+       model.addAttribute("location", loc);
+       model.addAttribute("bookingDate", bookingDate);
+       model.addAttribute("bookingTime", bookingTime);
+       return "booksuccess";
+   }
 }

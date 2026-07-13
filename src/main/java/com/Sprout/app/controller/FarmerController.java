@@ -24,6 +24,8 @@ import com.Sprout.app.Entity.Farmer;
 import com.Sprout.app.Entity.LoginRequest;
 import com.Sprout.app.Service.FarmerService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -68,9 +70,12 @@ public class FarmerController {
     @PostMapping("/farmerlogin")
     public String login(@RequestParam String email, 
     		                       @RequestParam String password,
-    		                       Model model) {
+    		                       Model model,
+    		                       HttpSession session) {
     	Farmer farmer = farmerService.findByEmail(email);
     	if (farmer != null && passwordEncoder.matches(password, farmer.getPassword())) {
+            session.setAttribute("farmerEmail", farmer.getEmail());
+            session.setAttribute("farmerName", farmer.getName());
             return "redirect:/farmerportaldash";
         } else {
             model.addAttribute("error", "Invalid email or password. Please try again.");
