@@ -29,4 +29,8 @@ public class TodaysBookingService {
     public TodaysBooking findById(Long id) {
         return todaysBookingRepository.findById(id).orElse(null);
     }
+
+    public List<TodaysBooking> getBookingsByFarmerId(Long farmerId) {
+        return todaysBookingRepository.findByFarmerIdOrderByBookingDateDesc(farmerId);
+    }
 }

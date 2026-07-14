@@ -12,5 +12,6 @@ import com.Sprout.app.Entity.TodaysBooking;
 public interface TodaysBookingRepository extends JpaRepository<TodaysBooking, Long> {
     List<TodaysBooking> findByBookingDate(LocalDate bookingDate);
 
-}
+    List<TodaysBooking> findByFarmerIdOrderByBookingDateDesc(Long farmerId);
 
+}

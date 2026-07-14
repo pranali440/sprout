@@ -59,11 +59,11 @@ import jakarta.persistence.*;
 			this.password = password;
 		}
 
-		public String getlocation() {
+		public String getLocation() {
 			return location;
 		}
 
-		public void setlocation(String location) {
+		public void setLocation(String location) {
 			this.location = location;
 		}
 
@@ -89,4 +89,3 @@ import jakarta.persistence.*;
 		    }
 	    
 	}
-

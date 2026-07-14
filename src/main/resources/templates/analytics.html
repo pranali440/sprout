@@ -1,139 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analytics</title>
+    <title>My Analytics - SPROUT</title>
+    <script type="text/javascript" src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    
-    <script type="text/javascript">
+
+    <script type="text/javascript" th:inline="none">
+        var bookings = [];
+        var bills = [];
+        try {
+            bookings = JSON.parse(document.body.getAttribute('data-bookings') || '[]');
+        } catch (e) {
+            console.error('Could not parse bookings data', e);
+        }
+        try {
+            bills = JSON.parse(document.body.getAttribute('data-bills') || '[]');
+        } catch (e) {
+            console.error('Could not parse bills data', e);
+        }
+
         google.charts.load('current', {'packages': ['corechart', 'bar', 'table']});
         google.charts.setOnLoadCallback(drawCharts);
 
         function drawCharts() {
-            drawPieChart();
-            drawBarChart();
-            drawTable();
+            drawStatusPieChart();
+            drawWeightBarChart();
+            drawBookingsTable();
         }
 
-        function drawPieChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Intercrop', 'Seed rate of intercrop'],
-                ['Wheat', 75],
-                ['Chickpea', 50],
-                ['Mustard', 3],
-                ['Garlic', 250],
-                ['Onion', 8]
-            ]);
-
-            var options = {
-                title: 'Seed rate of intercrop',
-                titleTextStyle: {
-                    fontSize: 12, // Change font size as needed
-                    bold: true // Make the title bold
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawBarChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Country', 'Sugarcane production yield'],
-                ['Brazil', 70.64],
-                ['India', 70.25],
-                ['China', 71.33],
-                ['Thailand', 76.64],
-                ['Pakistan', 55.08],
-                ['Mexico', 74.39],
-                ['Indonesia', 60.50],
-                ['Philippines', 57.93],
-                ['Australia', 81.33],
-                ['Argentina', 66.54]
-            ]);
-
-            var options = {
-                title: 'Top ten sugarcane growing countries in the world',
-                chartArea: { width: '50%' },
-                hAxis: {
-                    title: 'Top ten sugarcane growing countries in the world',
-                    minValue: 0
-                },
-                vAxis: {
-                    title: 'Country'
-                }
-            };
-
-            var chart = new google.visualization.BarChart(document.getElementById('barchart'));
-
-            chart.draw(data, options);
-        }
-
-        function drawTable() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'State');
-            data.addColumn('number', 'Number of irrigations required');
-            data.addColumn('number', 'Average Sugarcane Yield (t/ha)');
-            data.addColumn('number', 'Amount of irrigation water required to produce 1.0 kg sugarcane (kg)');
-            data.addRows([
-                ['Punjab', 13, 72, 135],
-                ['Haryana', 13, 76, 133],
-                ['Rajasthan', 16, 67.4, 174],
-                ['Uttar Pradesh', 8, 61.7, 99],
-                ['Bihar', 7, 55.2, 95],
-                ['West Bengal', 7, 115, 48],
-                ['Assam', 6, 36.1, 122],
-                ['Gujarat', 25, 70.5, 260],
-                ['Madhya Pradesh', 16, 45.8, 276],
-                ['Maharashtra', 32, 76.1, 292],
-                ['Karnataka', 32, 85.5, 266],
-                ['Andhra Pradesh', 28, 79.4, 262],
-                ['Kerala', 9, 91.5, 67],
-                ['Tamil Nadu', 25, 105, 181]
-            ]);
-
-            var options = {
-                title: 'State-wise irrigation requirement in sugarcane cultivation',
-                titleTextStyle: {
-                    fontSize: 12, // Change font size as needed
-                    bold: true // Make the title bold
-                }
-            };
-
-            var table = new google.visualization.Table(document.getElementById('table_div'));
-
-            table.draw(data, {
-                showRowNumber: true,
-                width: '100%',
-                height: '100%'
+        function drawStatusPieChart() {
+            var counts = {};
+            bookings.forEach(function (b) {
+                var status = b.status || 'pending';
+                counts[status] = (counts[status] || 0) + 1;
             });
+
+            var rows = [['Status', 'Bookings']];
+            Object.keys(counts).forEach(function (status) {
+                rows.push([status.charAt(0).toUpperCase() + status.slice(1), counts[status]]);
+            });
+
+            var el = document.getElementById('piechart');
+            if (rows.length === 1) {
+                el.innerHTML = '<p class="text-center text-gray-500 py-16">No bookings yet.</p>';
+                return;
+            }
+
+            var data = google.visualization.arrayToDataTable(rows);
+            var options = {
+                title: 'Your Bookings by Status',
+                titleTextStyle: { fontSize: 14, bold: true },
+                colors: ['#1B4332', '#52B788', '#FFB703', '#E63946']
+            };
+            var chart = new google.visualization.PieChart(el);
+            chart.draw(data, options);
+        }
+
+        function drawWeightBarChart() {
+            var el = document.getElementById('barchart');
+            if (!bills.length) {
+                el.innerHTML = '<p class="text-center text-gray-500 py-16">No weighed cane yet.</p>';
+                return;
+            }
+
+            var rows = [['Bill', 'Total Weight (kg)']];
+            bills.forEach(function (bill) {
+                rows.push(['Bill #' + bill.id, bill.totalWeight]);
+            });
+
+            var data = google.visualization.arrayToDataTable(rows);
+            var options = {
+                title: 'Your Cane Weight per Bill',
+                titleTextStyle: { fontSize: 14, bold: true },
+                chartArea: { width: '60%' },
+                colors: ['#1B4332'],
+                hAxis: { title: 'Weight (kg)', minValue: 0 },
+                vAxis: { title: 'Bill' }
+            };
+            var chart = new google.visualization.BarChart(el);
+            chart.draw(data, options);
+        }
+
+        function drawBookingsTable() {
+            var el = document.getElementById('table_div');
+            if (!bookings.length) {
+                el.innerHTML = '<p class="text-center text-gray-500 py-6">No bookings to show yet.</p>';
+                return;
+            }
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Date');
+            data.addColumn('string', 'Time');
+            data.addColumn('string', 'Location');
+            data.addColumn('string', 'Status');
+            data.addRows(bookings.map(function (b) {
+                return [b.bookingDate || '', b.bookingTime || '', b.location || '', b.status || 'pending'];
+            }));
+
+            var table = new google.visualization.Table(el);
+            table.draw(data, { showRowNumber: true, width: '100%', height: '100%' });
         }
 
         function printPage() {
             window.print();
         }
     </script>
-
-    <style>
-        /* Additional styles can be added here if needed */
-    </style>
 </head>
-<body>
-    <!-- Print Button -->
-    <div class="py-4 text-center">
-        <button onclick="printPage()">Print or Save as PDF</button>
-    </div>
+<body class="bg-[#D8F3DC] min-h-screen" th:attr="data-bookings=${bookingsJson},data-bills=${billsJson}">
 
-    <div>
-        <!-- Pie Chart -->
-        <div id="piechart" style="width: 50%; height: 300px; float: left;"></div>
-        <!-- Bar Chart -->
-        <div id="barchart" style="width: 50%; height: 300px; float: left;"></div>
-    </div>
+    <div class="max-w-5xl mx-auto px-4 py-10">
 
-    <!-- Table -->
-    <div id="table_div"></div>
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden mb-6">
+            <div class="bg-[#1B4332] px-8 py-6 text-white flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold">My Analytics</h2>
+                    <p class="text-sm text-[#D8F3DC] mt-1" th:if="${farmerName}" th:text="'Overview for ' + ${farmerName}"></p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="printPage()" class="text-sm bg-[#D8F3DC] text-[#1B4332] font-semibold px-4 py-2 rounded-lg hover:bg-white transition">Print / Save PDF</button>
+                    <a href="/farmerportaldash" class="text-sm bg-[#D8F3DC] text-[#1B4332] font-semibold px-4 py-2 rounded-lg hover:bg-white transition">Back</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white rounded-2xl shadow-lg p-4">
+                <div id="piechart" style="width: 100%; height: 320px;"></div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-4">
+                <div id="barchart" style="width: 100%; height: 320px;"></div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg p-4">
+            <h3 class="text-[#1B4332] font-bold text-lg mb-3 px-2">Your Booking History</h3>
+            <div id="table_div"></div>
+        </div>
+
+    </div>
 </body>
 </html>

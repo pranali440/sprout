@@ -86,16 +86,30 @@ public class PageController {
     public String deptLogin() {
         return "deptLogin";
     }
-    
+
     @PostMapping("/deptlogin")
-    public String login(@RequestParam String adminId, @RequestParam String adminPassword, Model model) {
+    public String login(@RequestParam String adminId, @RequestParam String adminPassword, @RequestParam String department, Model model, HttpSession session) {
         Admin admin = adminService.findByAdminId(adminId);
-        if (admin != null && passwordEncoder.matches(adminPassword, admin.getAdminPassword())) {
-            return "redirect:/department/dashboard?department=" + admin.getDepartment();
-        } else {
+        model.addAttribute("adminId", adminId);
+        model.addAttribute("department", department);
+
+        if (admin == null || !passwordEncoder.matches(adminPassword, admin.getAdminPassword())) {
             model.addAttribute("error", "Invalid username or password. Please try again.");
             return "deptLogin";
         }
+
+        if (admin.getDepartment() == null || !admin.getDepartment().equalsIgnoreCase(department)) {
+            model.addAttribute("error", "This account isn't registered under the selected department. Please choose the correct department.");
+            return "deptLogin";
+        }
+
+        // Store the authenticated department in the session instead of relying solely
+        // on the URL query parameter, so /department/dashboard can't be reached by
+        // simply guessing/editing the URL without having logged in.
+        session.setAttribute("adminId", admin.getAdminId());
+        session.setAttribute("adminDepartment", admin.getDepartment());
+
+        return "redirect:/department/dashboard?department=" + admin.getDepartment();
     }
     
     @GetMapping("/workerLogin")
@@ -183,15 +197,27 @@ public class PageController {
     }
     
     @GetMapping("/department/dashboard")
-    public String departmentDashboard(@RequestParam String department) {
+    public String departmentDashboard(@RequestParam(required = false) String department, HttpSession session) {
+        // Fall back to the department stored at login time if the query
+        // parameter is missing (direct hit, refresh, bookmark, etc.)
+        if (department == null || department.isBlank()) {
+            department = (String) session.getAttribute("adminDepartment");
+        }
+
+        // No department in the request or the session means the user never
+        // logged in through /deptlogin — send them back there instead of
+        // throwing a MissingServletRequestParameterException.
+        if (department == null) {
+            return "redirect:/deptlogin";
+        }
+
         if ("Caneyard".equals(department)) {
             return "caneyard"; 
-        }else if("Electrical".equals(department)) {
+        } else if ("Electrical".equals(department)) {
         	return "electricaldept";
-        }else if("Crushing".equals(department)) {
+        } else if ("Crushing".equals(department)) {
         	return "crushing";
-        }
-        else{
+        } else {
             return "redirect:/"; 
         }
     }
