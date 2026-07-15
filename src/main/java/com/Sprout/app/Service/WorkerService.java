@@ -51,6 +51,10 @@ public class WorkerService {
         return workerRepository.findByApprovedFalse();
     }
 
+    public java.util.List<Worker> findPendingWorkersByDept(String deptName) {
+        return workerRepository.findByApprovedFalseAndDeptName(deptName);
+    }
+
     public Worker approveWorker(Integer workerId) {
         Worker worker = workerRepository.findById(workerId).orElse(null);
         if (worker != null) {
@@ -60,8 +64,34 @@ public class WorkerService {
         return null;
     }
 
+    /**
+     * Approves a worker only if they belong to the given department.
+     * Used by department-admin endpoints so a Billing admin can't approve
+     * (or even discover the id of) a worker registered under Crushing, etc.
+     */
+    public Worker approveWorkerInDept(Integer workerId, String deptName) {
+        Worker worker = workerRepository.findById(workerId).orElse(null);
+        if (worker != null && worker.getDeptName() != null && worker.getDeptName().equalsIgnoreCase(deptName)) {
+            worker.setApproved(true);
+            return workerRepository.save(worker);
+        }
+        return null;
+    }
+
     public void rejectWorker(Integer workerId) {
         workerRepository.deleteById(workerId);
+    }
+
+    /**
+     * Rejects (deletes) a worker only if they belong to the given department.
+     */
+    public boolean rejectWorkerInDept(Integer workerId, String deptName) {
+        Worker worker = workerRepository.findById(workerId).orElse(null);
+        if (worker != null && worker.getDeptName() != null && worker.getDeptName().equalsIgnoreCase(deptName)) {
+            workerRepository.deleteById(workerId);
+            return true;
+        }
+        return false;
     }
     
 

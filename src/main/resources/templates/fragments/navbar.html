@@ -38,9 +38,9 @@
                 <li><a href="/" class="text-white hover:text-[#1B4332]">Home</a></li>
                 <li><a href="/aboutus" class="text-white hover:text-[#1B4332]">About Us</a></li>
                 <li><a href="/contactus" class="text-white hover:text-[#1B4332]">Contact Us</a></li>
-				<li><a href="/deptdashboard" class="text-white hover:text-[#1B4332]">Department</a></li>
-                <li th:if="${!isFarmerLoggedIn}"><a href="/login" class="text-white hover:text-[#1B4332] font-semibold">Login</a></li>
-                <li th:if="${!isFarmerLoggedIn}"><a href="/register" class="text-white hover:text-[#1B4332] font-semibold">Register</a></li>
+                <li><a href="/deptlogin" class="text-white hover:text-[#1B4332] font-semibold">Admin</a></li>
+                <li th:if="${!isFarmerLoggedIn}"><a href="/workerLogin" class="text-white hover:text-[#1B4332] font-semibold">Worker</a></li>
+                <li th:if="${!isFarmerLoggedIn}"><a href="/farmerLogin" class="text-white hover:text-[#1B4332] font-semibold">Farmer</a></li>
                 <li th:if="${isFarmerLoggedIn}" class="text-white font-semibold" th:text="'Welcome, ' + ${loggedInFarmerName}"></li>
                 <li th:if="${isFarmerLoggedIn}"><a href="/farmerportaldash" class="text-white hover:text-[#1B4332] font-semibold">My Portal</a></li>
                 <li th:if="${isFarmerLoggedIn}"><a href="/logout" class="text-white hover:text-[#1B4332] font-semibold">Logout</a></li>

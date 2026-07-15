@@ -38,6 +38,7 @@ public class AchievementController {
                                  @RequestParam("description") String description,
                                  @RequestParam("image") MultipartFile image) {
         achievementService.addAchievement(title, description, image);
-        return "redirect:/success"; // Redirect to success page after submission
+        return "redirect:/achievements"; // Back to the achievements list, where the new one will appear
     }
+    
 }

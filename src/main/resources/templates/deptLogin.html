@@ -27,8 +27,8 @@
             <div class="md:w-1/2 p-10 flex flex-col justify-center">
                 <div class="text-center mb-6">
                     <div class="w-14 h-14 mx-auto rounded-full bg-[#D8F3DC] flex items-center justify-center text-2xl mb-3">🏭</div>
-                    <h2 class="text-2xl font-bold text-[#1B4332]">Department Admin Login</h2>
-                    <p class="text-sm text-gray-500">Sign in to your department account</p>
+                    <h2 class="text-2xl font-bold text-[#1B4332]">Admin Login</h2>
+                    <p class="text-sm text-gray-500">Select your department and sign in</p>
                 </div>
 
                 <form method="post" action="/deptlogin">
@@ -37,7 +37,9 @@
                         <label class="block text-gray-700 text-sm font-semibold mb-2" for="department">Department</label>
                         <select class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent" id="department" name="department" required>
                             <option value="" disabled th:selected="${department == null}">Select your department</option>
+                            <option value="Admin" th:selected="${department == 'Admin'}">Admin (Root)</option>
                             <option value="Caneyard" th:selected="${department == 'Caneyard'}">Caneyard</option>
+                            <option value="Billing" th:selected="${department == 'Billing'}">Billing</option>
                             <option value="Electrical" th:selected="${department == 'Electrical'}">Electrical</option>
                             <option value="Crushing" th:selected="${department == 'Crushing'}">Crushing</option>
                         </select>
@@ -53,7 +55,6 @@
                     <button type="submit" class="w-full bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-bold py-3 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B4332]">Sign In</button>
                 </form>
 
-                <p class="text-sm text-center text-gray-500 mt-6">Looking for admin login? <a href="/admin/adminlogin" class="text-[#1B4332] hover:underline font-semibold">Click here</a></p>
             </div>
         </div>
     </div>

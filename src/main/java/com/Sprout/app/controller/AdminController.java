@@ -17,6 +17,8 @@ import com.Sprout.app.Service.AdminService;
 import com.Sprout.app.Service.SugarFactoryDataService;
 import com.Sprout.app.Service.WorkerService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -25,8 +27,6 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private SugarFactoryDataService service;
-    @Autowired
-    private WorkerService workerService;
 
     @Value("${root.admin.username}")
     private String rootAdminUsername;
@@ -40,13 +40,17 @@ public class AdminController {
     }
     
     @GetMapping("/admindash")
-    public String adminDash() {
+    public String adminDash(HttpSession session) {
+        if (!Boolean.TRUE.equals(session.getAttribute("rootAdmin"))) {
+            return "redirect:/admin/adminlogin";
+        }
         return "admin";
     }
     
     @PostMapping("/adminlogin")
-    public String adminLogin(@RequestParam String adminId, @RequestParam String adminPassword, Model model) {
+    public String adminLogin(@RequestParam String adminId, @RequestParam String adminPassword, Model model, HttpSession session) {
        if(adminId.equals(rootAdminUsername) && adminPassword.equals(rootAdminPassword)) {
+    	session.setAttribute("rootAdmin", true);
     	return "redirect:/admin/admindash";
        }else {
     	   model.addAttribute("error", "Invalid username or password. Please try again.");
@@ -54,40 +58,38 @@ public class AdminController {
        }
     }
 
-    
+    // Creating a new department admin is a root-admin-only action: this is what
+    // replaces hardcoding a separate username/password per department. Only
+    // someone already authenticated as the root admin can reach these two routes.
+
     @GetMapping("/admindash/addAdmin")
-    public String addAdmin() {
+    public String addAdmin(HttpSession session) {
+        if (!Boolean.TRUE.equals(session.getAttribute("rootAdmin"))) {
+            return "redirect:/admin/adminlogin";
+        }
         return "addAdmin";
     }
 
     @GetMapping("/admindash/events")
-    public String addEvent() {
+    public String addEvent(HttpSession session) {
+        if (!Boolean.TRUE.equals(session.getAttribute("rootAdmin"))) {
+            return "redirect:/admin/adminlogin";
+        }
         return "event";
     }
 
     @PostMapping("/admindash/addAdmin")
-    public String addAdmin(Admin admin) {
+    public String addAdmin(Admin admin, HttpSession session) {
+        if (!Boolean.TRUE.equals(session.getAttribute("rootAdmin"))) {
+            return "redirect:/admin/adminlogin";
+        }
         adminService.saveAdmin(admin);
         return "redirect:/admin/admindash";
     }
-    
-    @GetMapping("/admindash/pendingWorkers")
-    public String pendingWorkers(Model model) {
-        model.addAttribute("pendingWorkers", workerService.findPendingWorkers());
-        return "pendingWorkers";
-    }
 
-    @PostMapping("/admindash/approveWorker/{workerId}")
-    public String approveWorker(@PathVariable Integer workerId) {
-        workerService.approveWorker(workerId);
-        return "redirect:/admin/admindash/pendingWorkers";
-    }
-
-    @PostMapping("/admindash/rejectWorker/{workerId}")
-    public String rejectWorker(@PathVariable Integer workerId) {
-        workerService.rejectWorker(workerId);
-        return "redirect:/admin/admindash/pendingWorkers";
-    }
+    // Pending-worker approval is now handled entirely by each department's own
+    // admin at /department/pendingWorkers (see PageController) - the root admin
+    // no longer sees a combined, cross-department queue.
 
     @GetMapping("/analytics")
     public String index(Model model) {

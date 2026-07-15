@@ -3,51 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worker Registration</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Worker Registration - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-    <div class="flex justify-center items-center min-h-screen py-8">
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md" method="post" action="/workerRegister">
-            <h2 class="text-2xl font-bold mb-1 text-center">Worker Registration</h2>
-            <p class="text-sm text-gray-500 text-center mb-4">Your Worker ID will be generated automatically after signup.</p>
-            <div th:if="${error}" class="bg-red-100 text-red-700 text-sm rounded px-3 py-2 mb-4" th:text="${error}"></div>
+<body class="bg-[#D8F3DC]">
+    <div class="min-h-screen flex items-center justify-center px-4 py-10">
+        <div class="w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Full Name</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" type="text" placeholder="Your full name" required>
+            <!-- Left branded panel -->
+            <div class="md:w-2/5 text-white p-10 flex flex-col justify-between relative" style="background-image: linear-gradient(rgba(27,67,50,0.85), rgba(27,67,50,0.85)), url('/images/caneyard.jpeg'); background-size: cover; background-position: center;">
+                <div>
+                    <span class="text-3xl font-extrabold tracking-wide">SPROUT</span>
+                    <p class="text-sm text-[#D8F3DC] mt-1">Sugarcane PROduction Utilization and Technology</p>
+                </div>
+                <div class="mt-10">
+                    <h2 class="text-2xl font-bold mb-2">Join as a Worker</h2>
+                    <p class="text-sm text-[#D8F3DC] leading-relaxed">Register for your department and get access to daily operations, records, and schedules once your department admin approves your account.</p>
+                    <ul class="mt-6 space-y-3 text-sm text-[#D8F3DC]">
+                        <li class="flex items-start"><span class="mr-2">✓</span> Quick, one-time signup</li>
+                        <li class="flex items-start"><span class="mr-2">✓</span> Reviewed by your own department's admin</li>
+                        <li class="flex items-start"><span class="mr-2">✓</span> You'll be notified once approved</li>
+                    </ul>
+                </div>
+                <a href="/" class="text-sm text-[#95D5B2] hover:text-white mt-10 inline-block">&larr; Back to Home</a>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" placeholder="you@example.com" required>
+
+            <!-- Right form panel -->
+            <div class="md:w-3/5 p-10 flex flex-col justify-center max-h-screen overflow-y-auto">
+                <div class="text-center mb-6">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-[#D8F3DC] flex items-center justify-center text-2xl mb-3">👷</div>
+                    <h2 class="text-2xl font-bold text-[#1B4332]">Worker Registration</h2>
+                    <p class="text-sm text-gray-500">Your Worker ID will be generated automatically after signup</p>
+                </div>
+
+                <form method="post" action="/workerRegister">
+                    <div th:if="${error}" class="bg-red-100 text-red-700 text-sm rounded px-3 py-2 mb-4" th:text="${error}"></div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="mb-4 sm:col-span-2">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="name">Full Name</label>
+                            <input class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent" id="name" name="name" type="text" placeholder="Your full name" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="email">Email</label>
+                            <input class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent" id="email" name="email" type="email" placeholder="you@example.com" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="phone">Phone Number</label>
+                            <input class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent" id="phone" name="phone" type="tel" placeholder="Your phone number">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="deptName">Department</label>
+                            <select class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent bg-white" id="deptName" name="deptName" required>
+                                <option value="" disabled selected>Select a department</option>
+                                <option value="Caneyard">Caneyard</option>
+                                <option value="Billing">Billing</option>
+                                <option value="Electrical">Electrical</option>
+                                <option value="Crushing">Crushing</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="location">Location</label>
+                            <input class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent" id="location" name="location" type="text" placeholder="Your location">
+                        </div>
+
+                        <div class="mb-6 sm:col-span-2">
+                            <label class="block text-gray-700 text-sm font-semibold mb-2" for="password">Password</label>
+                            <input class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-[#1B4332] focus:border-transparent" id="password" name="password" type="password" placeholder="Choose a password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-bold py-3 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B4332]">Create Account</button>
+                </form>
+
+                <p class="text-sm text-center text-gray-500 mt-6">Already registered? <a href="/workerLogin" class="text-[#1B4332] hover:underline font-semibold">Log in here</a></p>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Phone Number</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" name="phone" type="tel" placeholder="Your phone number">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="deptName">Department</label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="deptName" name="deptName" required>
-                    <option value="">Select a department</option>
-                    <option value="Caneyard">Caneyard</option>
-                    <option value="Crushing">Crushing</option>
-                    <option value="Electrical">Electrical</option>
-                    <option value="Billing">Billing</option>
-                </select>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="location">Location</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="location" name="location" type="text" placeholder="Your location">
-            </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="Choose a password" required>
-            </div>
-            <div class="flex items-center justify-between">
-                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">Register</button>
-            </div>
-            <p class="text-sm text-center mt-4">Already registered? <a href="/workerLogin" class="text-blue-600 hover:underline">Log in here</a></p>
-        </form>
+        </div>
     </div>
 </body>
 </html>

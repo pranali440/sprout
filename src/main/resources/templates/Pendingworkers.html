@@ -12,8 +12,8 @@
 <body class="bg-gray-100">
     <header class="header-bar text-gray-800 py-4">
         <div class="container mx-auto text-center relative">
-            <a href="/admin/admindash" class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-blue-600 hover:underline">&larr; Back to Dashboard</a>
-            <h1 class="text-2xl font-bold">Pending Worker Approvals</h1>
+            <a th:href="@{/department/dashboard(department=${department})}" class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-blue-600 hover:underline">&larr; Back to Dashboard</a>
+            <h1 class="text-2xl font-bold">Pending Worker Approvals<span th:if="${department}" th:text="' - ' + ${department}"></span></h1>
         </div>
     </header>
 
@@ -43,10 +43,10 @@
                         <td class="py-3 px-4" th:text="${worker.deptName}"></td>
                         <td class="py-3 px-4" th:text="${worker.location}"></td>
                         <td class="py-3 px-4">
-                            <form th:action="@{/admin/admindash/approveWorker/{id}(id=${worker.workerId})}" method="post" class="inline">
+                            <form th:action="@{/department/approveWorker/{id}(id=${worker.workerId})}" method="post" class="inline">
                                 <button type="submit" class="bg-green-600 hover:bg-green-700 text-white text-sm py-1 px-3 rounded mr-2">Approve</button>
                             </form>
-                            <form th:action="@{/admin/admindash/rejectWorker/{id}(id=${worker.workerId})}" method="post" class="inline">
+                            <form th:action="@{/department/rejectWorker/{id}(id=${worker.workerId})}" method="post" class="inline">
                                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded">Reject</button>
                             </form>
                         </td>
