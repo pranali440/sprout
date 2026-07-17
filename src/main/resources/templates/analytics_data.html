@@ -1,256 +1,230 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Sugar Factory Data</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Add Sugar Factory Data - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Add Sugar Factory Data</h1>
-        <form action="/admin/add_data" method="post">
-            <!-- Season and Total Producer Members -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="season">Season:</label>
-                    <input type="text" class="form-control" id="season" name="season">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="totalProducerMembers">Total Producer Members:</label>
-                    <input type="number" class="form-control" id="totalProducerMembers" name="totalProducerMembers">
+<body class="bg-[#D8F3DC] min-h-screen">
+    <!-- Header -->
+    <header class="bg-[#1B4332] text-white py-6 shadow-md">
+        <div class="container mx-auto flex items-center justify-between px-4">
+            <div>
+                <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
+                <h1 class="text-lg font-semibold text-[#D8F3DC] mt-1">Add Sugar Factory Data</h1>
+            </div>
+            <a href="/admin/admindash" class="text-sm text-[#95D5B2] hover:text-white font-semibold">&larr; Back to Dashboard</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-10 px-4">
+        <form action="/admin/add_data" method="post" class="max-w-5xl mx-auto space-y-6">
+
+            <!-- Section: Membership -->
+            <div class="bg-white rounded-2xl shadow-md p-8">
+                <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">👥 Membership</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="season" class="block text-gray-700 text-sm font-semibold mb-1.5">Season</label>
+                        <input type="text" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="season" name="season">
+                    </div>
+                    <div>
+                        <label for="totalProducerMembers" class="block text-gray-700 text-sm font-semibold mb-1.5">Total Producer Members</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="totalProducerMembers" name="totalProducerMembers">
+                    </div>
+                    <div>
+                        <label for="producerMembersSC" class="block text-gray-700 text-sm font-semibold mb-1.5">Producer Members SC</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="producerMembersSC" name="producerMembersSC">
+                    </div>
+                    <div>
+                        <label for="producerMembersST" class="block text-gray-700 text-sm font-semibold mb-1.5">Producer Members ST</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="producerMembersST" name="producerMembersST">
+                    </div>
+                    <div>
+                        <label for="totalNonProducerMembers" class="block text-gray-700 text-sm font-semibold mb-1.5">Total Non-Producer Members</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="totalNonProducerMembers" name="totalNonProducerMembers">
+                    </div>
+                    <div>
+                        <label for="nonProducerMembersSC" class="block text-gray-700 text-sm font-semibold mb-1.5">Non-Producer Members SC</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="nonProducerMembersSC" name="nonProducerMembersSC">
+                    </div>
+                    <div>
+                        <label for="nonProducerMembersST" class="block text-gray-700 text-sm font-semibold mb-1.5">Non-Producer Members ST</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="nonProducerMembersST" name="nonProducerMembersST">
+                    </div>
+                    <div>
+                        <label for="totalMembers" class="block text-gray-700 text-sm font-semibold mb-1.5">Total Members</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="totalMembers" name="totalMembers">
+                    </div>
+                    <div>
+                        <label for="nominatedMembers" class="block text-gray-700 text-sm font-semibold mb-1.5">Nominated Members</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="nominatedMembers" name="nominatedMembers">
+                    </div>
                 </div>
             </div>
 
-            <!-- Producer Members SC and Producer Members ST -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="producerMembersSC">Producer Members SC:</label>
-                    <input type="number" class="form-control" id="producerMembersSC" name="producerMembersSC">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="producerMembersST">Producer Members ST:</label>
-                    <input type="number" class="form-control" id="producerMembersST" name="producerMembersST">
-                </div>
-            </div>
-
-            <!-- Total Non-Producer Members and Non-Producer Members SC -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="totalNonProducerMembers">Total Non-Producer Members:</label>
-                    <input type="number" class="form-control" id="totalNonProducerMembers" name="totalNonProducerMembers">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="nonProducerMembersSC">Non-Producer Members SC:</label>
-                    <input type="number" class="form-control" id="nonProducerMembersSC" name="nonProducerMembersSC">
-                </div>
-            </div>
-
-            <!-- Non-Producer Members ST and Total Members -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="nonProducerMembersST">Non-Producer Members ST:</label>
-                    <input type="number" class="form-control" id="nonProducerMembersST" name="nonProducerMembersST">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="totalMembers">Total Members:</label>
-                    <input type="number" class="form-control" id="totalMembers" name="totalMembers">
+            <!-- Section: Area of Operation & Villages -->
+            <div class="bg-white rounded-2xl shadow-md p-8">
+                <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">🗺️ Area of Operation &amp; Villages</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="areaOfOperationKarvirTaluka" class="block text-gray-700 text-sm font-semibold mb-1.5">Area of Operation - Karvir Taluka</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="areaOfOperationKarvirTaluka" name="areaOfOperationKarvirTaluka">
+                    </div>
+                    <div>
+                        <label for="areaOfOperationRadhanagariTaluka" class="block text-gray-700 text-sm font-semibold mb-1.5">Area of Operation - Radhanagari Taluka</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="areaOfOperationRadhanagariTaluka" name="areaOfOperationRadhanagariTaluka">
+                    </div>
+                    <div>
+                        <label for="villagesWithinArea" class="block text-gray-700 text-sm font-semibold mb-1.5">Villages Within Area</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="villagesWithinArea" name="villagesWithinArea">
+                    </div>
+                    <div>
+                        <label for="villagesOutsideMaharashtra" class="block text-gray-700 text-sm font-semibold mb-1.5">Villages Outside Maharashtra</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="villagesOutsideMaharashtra" name="villagesOutsideMaharashtra">
+                    </div>
+                    <div>
+                        <label for="villagesOutsideAreaMaharashtra" class="block text-gray-700 text-sm font-semibold mb-1.5">Villages Outside Area (Maharashtra)</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="villagesOutsideAreaMaharashtra" name="villagesOutsideAreaMaharashtra">
+                    </div>
+                    <div>
+                        <label for="totalVillages" class="block text-gray-700 text-sm font-semibold mb-1.5">Total Villages</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="totalVillages" name="totalVillages">
+                    </div>
                 </div>
             </div>
 
-            <!-- Nominated Members and Area of Operation Karvir Taluka -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="nominatedMembers">Nominated Members:</label>
-                    <input type="number" class="form-control" id="nominatedMembers" name="nominatedMembers">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="areaOfOperationKarvirTaluka">Area of Operation Karvir Taluka:</label>
-                    <input type="number" class="form-control" id="areaOfOperationKarvirTaluka" name="areaOfOperationKarvirTaluka">
-                </div>
-            </div>
-
-            <!-- Area of Operation Radhanagari Taluka and Villages Within Area -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="areaOfOperationRadhanagariTaluka">Area of Operation Radhanagari Taluka:</label>
-                    <input type="number" class="form-control" id="areaOfOperationRadhanagariTaluka" name="areaOfOperationRadhanagariTaluka">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="villagesWithinArea">Villages Within Area:</label>
-                    <input type="number" class="form-control" id="villagesWithinArea" name="villagesWithinArea">
-                </div>
-            </div>
-
-            <!-- Villages Outside Maharashtra and Villages Outside Area Maharashtra -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="villagesOutsideMaharashtra">Villages Outside Maharashtra:</label>
-                    <input type="number" class="form-control" id="villagesOutsideMaharashtra" name="villagesOutsideMaharashtra">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="villagesOutsideAreaMaharashtra">Villages Outside Area Maharashtra:</label>
-                    <input type="number" class="form-control" id="villagesOutsideAreaMaharashtra" name="villagesOutsideAreaMaharashtra">
+            <!-- Section: Crushing Capacity & Season -->
+            <div class="bg-white rounded-2xl shadow-md p-8">
+                <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">⚙️ Crushing Capacity &amp; Season</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="sanctionedCaneCrushingCapacity" class="block text-gray-700 text-sm font-semibold mb-1.5">Sanctioned Cane Crushing Capacity</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="sanctionedCaneCrushingCapacity" name="sanctionedCaneCrushingCapacity">
+                    </div>
+                    <div>
+                        <label for="installedCaneCrushingCapacity" class="block text-gray-700 text-sm font-semibold mb-1.5">Installed Cane Crushing Capacity</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="installedCaneCrushingCapacity" name="installedCaneCrushingCapacity">
+                    </div>
+                    <div>
+                        <label for="caneCrushingSeasonStartDate" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Crushing Season Start Date</label>
+                        <input type="date" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneCrushingSeasonStartDate" name="caneCrushingSeasonStartDate">
+                    </div>
+                    <div>
+                        <label for="caneCrushingSeasonEndDate" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Crushing Season End Date</label>
+                        <input type="date" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneCrushingSeasonEndDate" name="caneCrushingSeasonEndDate">
+                    </div>
                 </div>
             </div>
 
-            <!-- Total Villages and Sanctioned Cane Crushing Capacity -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="totalVillages">Total Villages:</label>
-                    <input type="number" class="form-control" id="totalVillages" name="totalVillages">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="sanctionedCaneCrushingCapacity">Sanctioned Cane Crushing Capacity:</label>
-                    <input type="number" class="form-control" id="sanctionedCaneCrushingCapacity" name="sanctionedCaneCrushingCapacity">
-                </div>
-            </div>
-
-            <!-- Installed Cane Crushing Capacity and Cane Crushing Season Start Date -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="installedCaneCrushingCapacity">Installed Cane Crushing Capacity:</label>
-                    <input type="number" class="form-control" id="installedCaneCrushingCapacity" name="installedCaneCrushingCapacity">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="caneCrushingSeasonStartDate">Cane Crushing Season Start Date:</label>
-                    <input type="date" class="form-control" id="caneCrushingSeasonStartDate" name="caneCrushingSeasonStartDate">
-                </div>
-            </div>
-
-            <!-- Cane Crushing Season End Date and Area Within Zone -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="caneCrushingSeasonEndDate">Cane Crushing Season End Date:</label>
-                    <input type="date" class="form-control" id="caneCrushingSeasonEndDate" name="caneCrushingSeasonEndDate">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="areaWithinZone">Area Within Zone:</label>
-                    <input type="number" class="form-control" id="areaWithinZone" name="areaWithinZone">
+            <!-- Section: Area Breakdown -->
+            <div class="bg-white rounded-2xl shadow-md p-8">
+                <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">📐 Area Breakdown</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="areaWithinZone" class="block text-gray-700 text-sm font-semibold mb-1.5">Area Within Zone</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="areaWithinZone" name="areaWithinZone">
+                    </div>
+                    <div>
+                        <label for="areaOutsideZone" class="block text-gray-700 text-sm font-semibold mb-1.5">Area Outside Zone</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="areaOutsideZone" name="areaOutsideZone">
+                    </div>
+                    <div>
+                        <label for="areaMaharashtraGovernment" class="block text-gray-700 text-sm font-semibold mb-1.5">Area - Maharashtra Government</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="areaMaharashtraGovernment" name="areaMaharashtraGovernment">
+                    </div>
+                    <div>
+                        <label for="areaOutsideMaharashtra" class="block text-gray-700 text-sm font-semibold mb-1.5">Area Outside Maharashtra</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="areaOutsideMaharashtra" name="areaOutsideMaharashtra">
+                    </div>
+                    <div>
+                        <label for="totalArea" class="block text-gray-700 text-sm font-semibold mb-1.5">Total Area</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="totalArea" name="totalArea">
+                    </div>
                 </div>
             </div>
 
-            <!-- Area Outside Zone and Area Maharashtra Government -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="areaOutsideZone">Area Outside Zone:</label>
-                    <input type="number" class="form-control" id="areaOutsideZone" name="areaOutsideZone">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="areaMaharashtraGovernment">Area Maharashtra Government:</label>
-                    <input type="number" class="form-control" id="areaMaharashtraGovernment" name="areaMaharashtraGovernment">
-                </div>
-            </div>
-
-            <!-- Area Outside Maharashtra and Total Area -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="areaOutsideMaharashtra">Area Outside Maharashtra:</label>
-                    <input type="number" class="form-control" id="areaOutsideMaharashtra" name="areaOutsideMaharashtra">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="totalArea">Total Area:</label>
-                    <input type="number" class="form-control" id="totalArea" name="totalArea">
-                </div>
-            </div>
-
-            <!-- Produced Sugar and Raw Sugar -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="producedSugar">Produced Sugar:</label>
-                    <input type="number" class="form-control" id="producedSugar" name="producedSugar">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="rawSugar">Raw Sugar:</label>
-                    <input type="number" class="form-control" id="rawSugar" name="rawSugar">
-                </div>
-            </div>
-
-            <!-- Average Sugar Recovery Percentage and Molasses Produced -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="averageSugarRecoveryPercentage">Average Sugar Recovery Percentage:</label>
-                    <input type="number" class="form-control" id="averageSugarRecoveryPercentage" name="averageSugarRecoveryPercentage" step="0.01">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="molassesProduced">Molasses Produced:</label>
-                    <input type="number" class="form-control" id="molassesProduced" name="molassesProduced">
+            <!-- Section: Production & Recovery -->
+            <div class="bg-white rounded-2xl shadow-md p-8">
+                <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">🏭 Production &amp; Recovery</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="producedSugar" class="block text-gray-700 text-sm font-semibold mb-1.5">Produced Sugar</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="producedSugar" name="producedSugar">
+                    </div>
+                    <div>
+                        <label for="rawSugar" class="block text-gray-700 text-sm font-semibold mb-1.5">Raw Sugar</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="rawSugar" name="rawSugar">
+                    </div>
+                    <div>
+                        <label for="averageSugarRecoveryPercentage" class="block text-gray-700 text-sm font-semibold mb-1.5">Average Sugar Recovery %</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="averageSugarRecoveryPercentage" name="averageSugarRecoveryPercentage">
+                    </div>
+                    <div>
+                        <label for="molassesProduced" class="block text-gray-700 text-sm font-semibold mb-1.5">Molasses Produced</label>
+                        <input type="number" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="molassesProduced" name="molassesProduced">
+                    </div>
+                    <div>
+                        <label for="molassesProducedAveragePerCaneInTons" class="block text-gray-700 text-sm font-semibold mb-1.5">Molasses Produced Avg. Per Cane (Tons)</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="molassesProducedAveragePerCaneInTons" name="molassesProducedAveragePerCaneInTons">
+                    </div>
+                    <div>
+                        <label for="caneRecoveryRate" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Recovery Rate</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneRecoveryRate" name="caneRecoveryRate">
+                    </div>
+                    <div>
+                        <label for="bagassePercentageAverage" class="block text-gray-700 text-sm font-semibold mb-1.5">Bagasse Percentage Average</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="bagassePercentageAverage" name="bagassePercentageAverage">
+                    </div>
                 </div>
             </div>
 
-            <!-- Molasses Produced Average Per Cane In Tons and Cane Recovery Rate -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="molassesProducedAveragePerCaneInTons">Molasses Produced Average Per Cane In Tons:</label>
-                    <input type="number" class="form-control" id="molassesProducedAveragePerCaneInTons" name="molassesProducedAveragePerCaneInTons" step="0.01">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="caneRecoveryRate">Cane Recovery Rate:</label>
-                    <input type="number" class="form-control" id="caneRecoveryRate" name="caneRecoveryRate" step="0.01">
-                </div>
-            </div>
-
-            <!-- Bagasse Percentage Average and Cane Crushed Member Within Factory Area -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="bagassePercentageAverage">Bagasse Percentage Average:</label>
-                    <input type="number" class="form-control" id="bagassePercentageAverage" name="bagassePercentageAverage" step="0.01">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="caneCrushedMemberWithinFactoryArea">Cane Crushed Member Within Factory Area:</label>
-                    <input type="number" class="form-control" id="caneCrushedMemberWithinFactoryArea" name="caneCrushedMemberWithinFactoryArea" step="0.01">
-                </div>
-            </div>
-
-            <!-- Cane Crushed Non-Member Within Factory Area and Cane Crushed Other Area In State -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="caneCrushedNonMemberWithinFactoryArea">Cane Crushed Non-Member Within Factory Area:</label>
-                    <input type="number" class="form-control" id="caneCrushedNonMemberWithinFactoryArea" name="caneCrushedNonMemberWithinFactoryArea" step="0.01">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="caneCrushedOtherAreaInState">Cane Crushed Other Area In State:</label>
-                    <input type="number" class="form-control" id="caneCrushedOtherAreaInState" name="caneCrushedOtherAreaInState" step="0.01">
-                </div>
-            </div>
-
-            <!-- Cane Crushed Outside State and Total Cane Crushed Area -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="caneCrushedOutsideState">Cane Crushed Outside State:</label>
-                    <input type="number" class="form-control" id="caneCrushedOutsideState" name="caneCrushedOutsideState" step="0.01">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="totalCaneCrushedArea">Total Cane Crushed Area:</label>
-                    <input type="number" class="form-control" id="totalCaneCrushedArea" name="totalCaneCrushedArea" step="0.01">
+            <!-- Section: Cane Crushed Breakdown -->
+            <div class="bg-white rounded-2xl shadow-md p-8">
+                <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">🌾 Cane Crushed Breakdown</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="caneCrushedMemberWithinFactoryArea" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Crushed - Member Within Factory Area</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneCrushedMemberWithinFactoryArea" name="caneCrushedMemberWithinFactoryArea">
+                    </div>
+                    <div>
+                        <label for="caneCrushedNonMemberWithinFactoryArea" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Crushed - Non-Member Within Factory Area</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneCrushedNonMemberWithinFactoryArea" name="caneCrushedNonMemberWithinFactoryArea">
+                    </div>
+                    <div>
+                        <label for="caneCrushedOtherAreaInState" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Crushed - Other Area In State</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneCrushedOtherAreaInState" name="caneCrushedOtherAreaInState">
+                    </div>
+                    <div>
+                        <label for="caneCrushedOutsideState" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Crushed - Outside State</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneCrushedOutsideState" name="caneCrushedOutsideState">
+                    </div>
+                    <div>
+                        <label for="totalCaneCrushedArea" class="block text-gray-700 text-sm font-semibold mb-1.5">Total Cane Crushed Area</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="totalCaneCrushedArea" name="totalCaneCrushedArea">
+                    </div>
+                    <div>
+                        <label for="caneCrushedWithinFactoryArea" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Crushed Within Factory Area</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneCrushedWithinFactoryArea" name="caneCrushedWithinFactoryArea">
+                    </div>
+                    <div>
+                        <label for="caneUsedForJaggery" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Used For Jaggery</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneUsedForJaggery" name="caneUsedForJaggery">
+                    </div>
+                    <div>
+                        <label for="caneUsedForSeeds" class="block text-gray-700 text-sm font-semibold mb-1.5">Cane Used For Seeds</label>
+                        <input type="number" step="0.01" class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]" id="caneUsedForSeeds" name="caneUsedForSeeds">
+                    </div>
                 </div>
             </div>
 
-            <!-- Cane Crushed Within Factory Area and Cane Used For Jaggery -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="caneCrushedWithinFactoryArea">Cane Crushed Within Factory Area:</label>
-                    <input type="number" class="form-control" id="caneCrushedWithinFactoryArea" name="caneCrushedWithinFactoryArea" step="0.01">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="caneUsedForJaggery">Cane Used For Jaggery:</label>
-                    <input type="number" class="form-control" id="caneUsedForJaggery" name="caneUsedForJaggery" step="0.01">
-                </div>
-            </div>
-
-            <!-- Cane Used For Seeds -->
-            <div class="form-group">
-                <label for="caneUsedForSeeds">Cane Used For Seeds:</label>
-                <input type="number" class="form-control" id="caneUsedForSeeds" name="caneUsedForSeeds" step="0.01">
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="w-full bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-bold py-3.5 rounded-lg transition text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1B4332]">Submit Sugar Factory Data</button>
         </form>
-    </div>
+    </main>
 
-    <!-- Bootstrap JS (optional) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer class="text-center text-sm text-[#1B4332] py-8">
+        &copy; 2026 SPROUT. All rights reserved.
+    </footer>
 </body>
 </html>
