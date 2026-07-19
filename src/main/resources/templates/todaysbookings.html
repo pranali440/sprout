@@ -2,95 +2,76 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Today's Cane Bookings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        }
-        
-        h1, h2 {
-            text-align: center;
-            color: #333333;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        
-        tr:hover {
-            background-color: #ddd;
-        }
-        
-        a {
-            text-decoration: none;
-            color: #333;
-        }
-        
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Style for the "View" link */
-        .view-link {
-            color: blue;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Cane Bookings - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h1>Today's Cane Bookings - <span id="clock"></span></h1>
-        <h2>Date: <span th:text="${#dates.format(#dates.createNow(),'dd-MM-yyyy')}"></span></h2>
-        <table>
-            <tr>
-                <th>Sr. No</th>
-                <th>Farmer ID</th>
-                <th>Farmer Name</th>
-                <th>Booking Time</th>
-                <th>Booking Date</th>
-                <th>Location</th>
-                <th>Actions</th>
-            </tr>
-            <tr th:each="booking, rowStat : ${Bookings}">
-                <td th:text="${rowStat.index + 1}"></td>
-                <td th:text="${booking.farmerId}"></td>
-                <td th:text="${booking.farmerName}"></td>
-                <td th:text="${booking.bookingTime}"></td>
-				<td th:text="${#temporals.format(booking.bookingDate,'dd-MM-yyyy')}"></td>
-                <td th:text="${booking.location}"></td>
-                <td>
-					<a th:if="${booking.status == 'pending'}" th:href="@{'/booking/' + ${booking.id} + '/view?location=' + ${booking.location} + '&farmerId=' + ${booking.farmerId} + '&bookingDate=' + ${booking.bookingDate} +'&bookingTime=' + ${booking.bookingTime}}">View</a>
-					<span th:if="${booking.status == 'completed'}">Completed</span>
-                </td>
-            </tr>
-        </table>
-    </div>
+<body class="bg-[#D8F3DC] min-h-screen">
+    <!-- Header -->
+	<!-- Header -->
+	<header class="bg-[#1B4332] text-white py-8 shadow-md relative">
+	    <a href="javascript:history.back()" class="absolute left-4 top-1/2 -translate-y-1/2 text-[#95D5B2] hover:text-white text-sm font-semibold flex items-center gap-1">&larr; Back</a>
+	    <div class="container mx-auto text-center px-4">
+	        <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
+	        <h1 class="text-2xl font-bold mt-2">Today's Cane Bookings</h1>
+	        <div class="text-sm text-[#D8F3DC] mt-1">
+	            <span th:text="${#dates.format(#dates.createNow(),'dd-MM-yyyy')}"></span> | <span id="clock"></span>
+	        </div>
+	    </div>
+	</header>
+
+    <main class="container mx-auto py-10 px-4">
+        <div class="bg-white rounded-2xl shadow-md p-8">
+
+            <div th:if="${#lists.isEmpty(Bookings)}" class="text-center py-10 text-gray-500">
+                No cane bookings for today.
+            </div>
+
+            <div th:unless="${#lists.isEmpty(Bookings)}" class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-[#1B4332] text-white text-sm">
+                            <th class="px-4 py-3 rounded-l-lg font-semibold">Sr. No</th>
+                            <th class="px-4 py-3 font-semibold">Farmer ID</th>
+                            <th class="px-4 py-3 font-semibold">Farmer Name</th>
+                            <th class="px-4 py-3 font-semibold">Booking Time</th>
+                            <th class="px-4 py-3 font-semibold">Booking Date</th>
+                            <th class="px-4 py-3 font-semibold">Location</th>
+                            <th class="px-4 py-3 rounded-r-lg font-semibold">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                        <tr th:each="booking, rowStat : ${Bookings}" class="hover:bg-[#D8F3DC]/40 transition">
+                            <td class="px-4 py-3" th:text="${rowStat.index + 1}"></td>
+                            <td class="px-4 py-3" th:text="${booking.farmerId}"></td>
+                            <td class="px-4 py-3" th:text="${booking.farmerName}"></td>
+                            <td class="px-4 py-3" th:text="${booking.bookingTime}"></td>
+                            <td class="px-4 py-3" th:text="${#temporals.format(booking.bookingDate,'dd-MM-yyyy')}"></td>
+                            <td class="px-4 py-3" th:text="${booking.location}"></td>
+                            <td class="px-4 py-3">
+                                <a th:if="${booking.status == 'pending'}"
+                                   th:href="@{'/booking/' + ${booking.id} + '/view?location=' + ${booking.location} + '&farmerId=' + ${booking.farmerId} + '&bookingDate=' + ${booking.bookingDate} +'&bookingTime=' + ${booking.bookingTime}}"
+                                   class="inline-block bg-[#1B4332] hover:bg-[#2d6a4f] text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition">View</a>
+                                <span th:if="${booking.status == 'completed'}" class="inline-block bg-[#D8F3DC] text-[#1B4332] text-xs font-semibold py-1.5 px-3 rounded-lg">✓ Completed</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center text-sm text-[#1B4332] py-8">
+        &copy; 2026 SPROUT. All rights reserved.
+    </footer>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>

@@ -2,42 +2,67 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Today's Cane For Crushing</title>
-    <style>
-        /* Styles remain unchanged */
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Cane For Crushing - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <p><a href="/department/pendingWorkers">Pending Worker Approvals</a></p>
-        <h1>Today's Cane Weighing</h1>
-        <table>
-            <tr>
-                <th>Sr. No</th>
-                <th>Farmer ID</th>
-                <th>Farmer Name</th>
-                <th>Booking Time</th>
-                <th>Booking Date</th>
-                <th>Location</th>
-                <th>Action</th>
-            </tr>
-            <tbody>
-                <tr th:each="schedule, rowStat : ${schedules}">
-                    <td th:text="${rowStat.index + 1}"></td>
-                    <td th:text="${schedule.farmer.id}"></td>
-                    <td th:text="${schedule.farmer.user.name}"></td>
-                    <td th:text="${schedule.bookingTime}"></td>
-                    <td th:text="${#temporals.format(schedule.bookingDate,'dd-MM-yyyy')}"></td>
-                    <td th:text="${schedule.location}"></td>
-                    <td>
-                        <form th:action="@{/markAsCompleted}" th:method="post" style="display: inline;">
-                            <input type="hidden" th:name="scheduleId" th:value="${schedule.id}">
-                            <button type="submit" class="view-form-btn">Mark as Completed</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<body class="bg-[#D8F3DC] min-h-screen">
+    <!-- Header -->
+    <header class="bg-[#1B4332] text-white py-8 shadow-md">
+        <div class="container mx-auto text-center px-4">
+            <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
+            <h1 class="text-2xl font-bold mt-2">Crushing Department</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-10 px-4">
+        <div class="mb-6">
+            <a href="/department/pendingWorkers" class="inline-block bg-white hover:bg-[#D8F3DC] text-[#1B4332] text-sm font-semibold py-2.5 px-5 rounded-lg shadow-md transition">⏳ Pending Worker Approvals</a>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md p-8">
+            <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">🌾 Today's Cane Weighing</h2>
+
+            <div th:if="${#lists.isEmpty(schedules)}" class="text-center py-10 text-gray-500">
+                No cane weighing schedules for today.
+            </div>
+
+            <div th:unless="${#lists.isEmpty(schedules)}" class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-[#1B4332] text-white text-sm">
+                            <th class="px-4 py-3 rounded-l-lg font-semibold">Sr. No</th>
+                            <th class="px-4 py-3 font-semibold">Farmer ID</th>
+                            <th class="px-4 py-3 font-semibold">Farmer Name</th>
+                            <th class="px-4 py-3 font-semibold">Booking Time</th>
+                            <th class="px-4 py-3 font-semibold">Booking Date</th>
+                            <th class="px-4 py-3 font-semibold">Location</th>
+                            <th class="px-4 py-3 rounded-r-lg font-semibold">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                        <tr th:each="schedule, rowStat : ${schedules}" class="hover:bg-[#D8F3DC]/40 transition">
+                            <td class="px-4 py-3" th:text="${rowStat.index + 1}"></td>
+                            <td class="px-4 py-3" th:text="${schedule.farmer.id}"></td>
+                            <td class="px-4 py-3" th:text="${schedule.farmer.user.name}"></td>
+                            <td class="px-4 py-3" th:text="${schedule.bookingTime}"></td>
+                            <td class="px-4 py-3" th:text="${#temporals.format(schedule.bookingDate,'dd-MM-yyyy')}"></td>
+                            <td class="px-4 py-3" th:text="${schedule.location}"></td>
+                            <td class="px-4 py-3">
+                                <form th:action="@{/markAsCompleted}" th:method="post" class="inline">
+                                    <input type="hidden" th:name="scheduleId" th:value="${schedule.id}">
+                                    <button type="submit" class="bg-[#1B4332] hover:bg-[#2d6a4f] text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition">Mark as Completed</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center text-sm text-[#1B4332] py-8">
+        &copy; 2026 SPROUT. All rights reserved.
+    </footer>
 </body>
 </html>

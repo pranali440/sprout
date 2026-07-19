@@ -1,95 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPROUT Dashboard</title>
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <style>
-        /* Add your custom CSS here */
-        /* Example: */
-        .header-bar { background-color: #4CAF50; }
-        .footer-bar { background-color: #4CAF50; }
-        .container-bg { background-color: #FDF2E9; }
-        .analytics-graph { border: 1px solid #ddd; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<body class="bg-gray-100">
+<body class="bg-[#D8F3DC] min-h-screen">
     <!-- Header -->
-    <header class="header-bar text-white py-4">
-        <div class="container mx-auto text-center">
-            <!-- Title -->
-            <h1 class="text-3xl font-bold">SPROUT Analytics Dashboard</h1>
-            <!-- Date and Time -->
-            <div class="text-sm mt-2">
+    <header class="bg-[#1B4332] text-white py-8 shadow-md">
+        <div class="container mx-auto text-center px-4">
+            <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
+            <h1 class="text-2xl font-bold mt-2">SPROUT Analytics Dashboard</h1>
+            <div class="text-sm text-[#D8F3DC] mt-1">
                 <span id="current-date"></span> | <span id="current-time"></span>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto py-6">
+    <main class="container mx-auto py-10 px-4 space-y-8">
         <!-- Analytics Section -->
-        <section class="mb-8 container-bg p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-4">Analytics</h2>
-            <!-- Add random analytics content here -->
-            <div class="analytics-graph p-4 rounded-lg bg-white">
-                <p class="text-xl font-semibold mb-2">Today's Sales</p>
-                <p class="text-4xl font-bold text-green-500">$<span id="random-sales">0</span></p>
+        <section class="bg-white p-6 rounded-2xl shadow-md">
+            <h2 class="text-xl font-bold text-[#1B4332] mb-4">Analytics</h2>
+            <div class="p-6 rounded-xl bg-[#D8F3DC]">
+                <p class="text-lg font-semibold text-[#1B4332] mb-2">Today's Sales</p>
+                <p class="text-4xl font-bold text-[#1B4332]">$<span id="random-sales">0</span></p>
             </div>
         </section>
 
         <!-- Achievements Section -->
-        <section class="mb-8 container-bg p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-4">Achievements</h2>
-            <!-- Add achievements content here -->
+        <section class="bg-white p-6 rounded-2xl shadow-md">
+            <h2 class="text-xl font-bold text-[#1B4332] mb-4">Achievements</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <!-- Achievement 1 -->
-                <div class="bg-white p-4 rounded-lg shadow-md">
-                    <img src="https://via.placeholder.com/150" alt="Achievement" class="w-full mb-2">
-                    <p class="text-lg font-semibold">Achievement 1</p>
-                    <p>Description of Achievement 1 goes here...</p>
+                <div class="bg-[#D8F3DC] rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-2">🏆</div>
+                    <p class="text-lg font-semibold text-[#1B4332]">Achievement 1</p>
+                    <p class="text-sm text-gray-600">Description of Achievement 1 goes here...</p>
                 </div>
-                <!-- Add more achievements here -->
             </div>
+            <a href="/achievements" class="inline-block mt-4 text-sm text-[#1B4332] hover:underline font-semibold">View all achievements &rarr;</a>
         </section>
 
         <!-- Features Section -->
-        <section class="mb-8 container-bg p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-4">Features</h2>
-            <!-- Add features content here -->
+        <section class="bg-white p-6 rounded-2xl shadow-md">
+            <h2 class="text-xl font-bold text-[#1B4332] mb-4">Features</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
-                <div class="bg-white p-4 rounded-lg shadow-md">
-                    <p class="text-lg font-semibold">Feature 1</p>
-                    <p>Description of Feature 1 goes here...</p>
+                <div class="bg-[#D8F3DC] rounded-xl p-6 text-center">
+                    <p class="text-lg font-semibold text-[#1B4332]">Feature 1</p>
+                    <p class="text-sm text-gray-600">Description of Feature 1 goes here...</p>
                 </div>
-                <!-- Add more features here -->
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer-bar text-white py-4">
-        <div class="container mx-auto text-center">
-            <!-- Contact Info -->
+    <footer class="bg-[#1B4332] text-white py-6">
+        <div class="container mx-auto text-center text-sm">
             <p>Contact us at: example@example.com</p>
-            <!-- Address -->
             <p>123 Sugar Factory Road, Sugarland</p>
-            <!-- Copyright -->
-            <p>&copy; 2024 Sugar Factory. All rights reserved.</p>
+            <p class="mt-2">&copy; 2026 SPROUT. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        // Function to get current date and time
         function getCurrentDateTime() {
             const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             const currentTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
@@ -97,23 +72,16 @@
             document.getElementById('current-time').textContent = currentTime;
         }
 
-        // Function to generate random sales amount
         function getRandomSales() {
-            const randomSales = Math.floor(Math.random() * 10000) + 1; // Generate random sales between 1 and 10000
+            const randomSales = Math.floor(Math.random() * 10000) + 1;
             document.getElementById('random-sales').textContent = randomSales;
         }
 
-        // Update date and time every second
         setInterval(getCurrentDateTime, 1000);
-
-        // Update random sales every 5 seconds
         setInterval(getRandomSales, 5000);
 
-        // Initial call to display current date and time
         getCurrentDateTime();
-        // Initial call to generate random sales amount
         getRandomSales();
     </script>
 </body>
-
 </html>

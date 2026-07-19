@@ -3,52 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cane Yard Department Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        /* Add your custom CSS here */
-        /* Example: */
-        .header-bar { background-color: #EAF0F1; }
-        .footer-bar { background-color: #EAF0F1; }
-        .container-bg { background-color: #FDF2E9; }
-        .card-color-1 { background-color: #FFD700; }
-        .card-color-2 { background-color: #FF6347; }
-    </style>
+    <title>Billing Department Dashboard - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-    <header class="header-bar text-gray-800 py-4">
-        <div class="container mx-auto text-center">
-            <h1 class="text-2xl font-bold mb-2">Billing Department</h1>
-            <div class="text-sm">
+<body class="bg-[#D8F3DC] min-h-screen">
+    <header class="bg-[#1B4332] text-white py-8 shadow-md">
+        <div class="container mx-auto text-center px-4">
+            <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
+            <h1 class="text-2xl font-bold mt-2">Billing Department</h1>
+            <div class="text-sm text-[#D8F3DC] mt-1">
                 <span id="current-date"></span> | <span id="current-time"></span>
             </div>
         </div>
     </header>
-    <main class="container mx-auto py-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
-			<a th:href="@{/todays-bookings/fetch/{bookingDate}(bookingDate=${#dates.format(#dates.createNow(),'yyyy-MM-dd')})}" class="card card-color-1 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
-			                <h2 class="text-lg font-semibold text-white mb-4">Farmer Bill</h2>
-                <img src="https://via.placeholder.com/150" alt="Mark Attendance" class="w-20 h-20 object-cover rounded-full mb-4">
+
+    <main class="container mx-auto py-10 px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a th:href="@{/todays-bookings/fetch/{bookingDate}(bookingDate=${#dates.format(#dates.createNow(),'yyyy-MM-dd')})}" class="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 flex flex-col items-center text-center transition duration-300">
+                <div class="w-16 h-16 rounded-full bg-[#D8F3DC] flex items-center justify-center text-3xl mb-4">🧾</div>
+                <h2 class="text-lg font-semibold text-[#1B4332]">Farmer Bill</h2>
+                <p class="text-xs text-gray-500 mt-1">View and manage farmer bills</p>
             </a>
-            <a href="daily-cane-scheduling.html" class="card card-color-2 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
-                <h2 class="text-lg font-semibold text-white mb-4">Salary Slip</h2>
-                <img src="https://via.placeholder.com/150" alt="Daily Cane Scheduling" class="w-20 h-20 object-cover rounded-full mb-4">
+            <a href="daily-cane-scheduling.html" class="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 flex flex-col items-center text-center transition duration-300">
+                <div class="w-16 h-16 rounded-full bg-[#D8F3DC] flex items-center justify-center text-3xl mb-4">💰</div>
+                <h2 class="text-lg font-semibold text-[#1B4332]">Salary Slip</h2>
+                <p class="text-xs text-gray-500 mt-1">Generate worker salary slips</p>
             </a>
-            <a href="cane-weighing.html" class="card card-color-3 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
-                <h2 class="text-lg font-semibold text-white mb-4">Cane Weighing</h2>
-                <img src="https://via.placeholder.com/150" alt="Cane Weighing" class="w-20 h-20 object-cover rounded-full mb-4">
+            <a href="cane-weighing.html" class="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 flex flex-col items-center text-center transition duration-300">
+                <div class="w-16 h-16 rounded-full bg-[#D8F3DC] flex items-center justify-center text-3xl mb-4">⚖️</div>
+                <h2 class="text-lg font-semibold text-[#1B4332]">Cane Weighing</h2>
+                <p class="text-xs text-gray-500 mt-1">Today's weighing records</p>
             </a>
-            <a href="/department/pendingWorkers" class="card card-color-1 rounded-lg shadow-md flex flex-col items-center justify-center p-6 hover:shadow-lg transition duration-300">
-                <h2 class="text-lg font-semibold text-white mb-4">Pending Worker Approvals</h2>
-                <img src="https://via.placeholder.com/150" alt="Pending Worker Approvals" class="w-20 h-20 object-cover rounded-full mb-4">
+            <a href="/department/pendingWorkers" class="bg-white rounded-2xl shadow-md hover:shadow-xl p-8 flex flex-col items-center text-center transition duration-300">
+                <div class="w-16 h-16 rounded-full bg-[#D8F3DC] flex items-center justify-center text-3xl mb-4">⏳</div>
+                <h2 class="text-lg font-semibold text-[#1B4332]">Pending Worker Approvals</h2>
+                <p class="text-xs text-gray-500 mt-1">Review and approve signups</p>
             </a>
         </div>
     </main>
-    <footer class="footer-bar text-gray-800 py-4">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2024 Sugar Factory. All rights reserved.</p>
-        </div>
+
+    <footer class="text-center text-sm text-[#1B4332] py-8">
+        &copy; 2026 SPROUT. All rights reserved.
     </footer>
+
     <script>
         function getCurrentDateTime() {
             const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });

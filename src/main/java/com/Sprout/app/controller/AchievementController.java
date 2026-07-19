@@ -40,5 +40,4 @@ public class AchievementController {
         achievementService.addAchievement(title, description, image);
         return "redirect:/achievements"; // Back to the achievements list, where the new one will appear
     }
-    
 }
