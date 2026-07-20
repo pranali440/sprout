@@ -17,6 +17,7 @@ import com.Sprout.app.Entity.Farmer;
 import com.Sprout.app.Entity.TodaysBooking;
 import com.Sprout.app.Service.FarmerService;
 import com.Sprout.app.Service.TodaysBookingService;
+import com.Sprout.app.Service.VillageService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,6 +31,9 @@ public class TodaysBookingController {
 
     @Autowired
     private FarmerService farmerService;
+
+    @Autowired
+    private VillageService villageService;
 
     @GetMapping("/fetch")
     public String getTodaysBookings(Model model) {
@@ -50,6 +54,7 @@ public class TodaysBookingController {
 	   model.addAttribute("todaysBooking", new TodaysBooking());
 	   model.addAttribute("farmerEmail", farmerEmail);
 	   model.addAttribute("farmerName", session.getAttribute("farmerName"));
+	   model.addAttribute("villages", villageService.getAllVillages());
 	   return "book";
    }
     
@@ -72,6 +77,7 @@ public class TodaysBookingController {
        model.addAttribute("farmerEmail", email);
        model.addAttribute("farmerName", session.getAttribute("farmerName"));
        model.addAttribute("location", loc);
+       model.addAttribute("villages", villageService.getAllVillages());
        model.addAttribute("bookingDate", bookingDate);
        model.addAttribute("bookingTime", bookingTime);
 

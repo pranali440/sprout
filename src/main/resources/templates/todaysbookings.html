@@ -8,19 +8,23 @@
 </head>
 <body class="bg-[#D8F3DC] min-h-screen">
     <!-- Header -->
-	<!-- Header -->
-	<header class="bg-[#1B4332] text-white py-8 shadow-md relative">
-	    <a href="javascript:history.back()" class="absolute left-4 top-1/2 -translate-y-1/2 text-[#95D5B2] hover:text-white text-sm font-semibold flex items-center gap-1">&larr; Back</a>
-	    <div class="container mx-auto text-center px-4">
-	        <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
-	        <h1 class="text-2xl font-bold mt-2">Today's Cane Bookings</h1>
-	        <div class="text-sm text-[#D8F3DC] mt-1">
-	            <span th:text="${#dates.format(#dates.createNow(),'dd-MM-yyyy')}"></span> | <span id="clock"></span>
-	        </div>
-	    </div>
-	</header>
+    <header class="bg-[#1B4332] text-white py-8 shadow-md relative">
+        <a href="javascript:history.back()" class="absolute left-4 top-1/2 -translate-y-1/2 text-[#95D5B2] hover:text-white text-sm font-semibold flex items-center gap-1">&larr; Back</a>
+        <div class="container mx-auto text-center px-4">
+            <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
+            <h1 class="text-2xl font-bold mt-2">Today's Cane Bookings</h1>
+            <div class="text-sm text-[#D8F3DC] mt-1">
+                <span th:text="${#dates.format(#dates.createNow(),'dd-MM-yyyy')}"></span> | <span id="clock"></span>
+            </div>
+        </div>
+    </header>
 
     <main class="container mx-auto py-10 px-4">
+        <div th:if="${error}" class="flex items-start gap-2 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-5 max-w-4xl mx-auto">
+            <span class="mt-0.5">⚠️</span>
+            <span th:text="${error}"></span>
+        </div>
+
         <div class="bg-white rounded-2xl shadow-md p-8">
 
             <div th:if="${#lists.isEmpty(Bookings)}" class="text-center py-10 text-gray-500">

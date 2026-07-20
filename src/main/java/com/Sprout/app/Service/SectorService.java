@@ -17,4 +17,8 @@ public class SectorService {
     public Sector saveSector(Sector sector) {
         return sectorRepository.save(sector);
     }
+
+    public java.util.List<Sector> getAllSectors() {
+        return sectorRepository.findAll(org.springframework.data.domain.Sort.by("name"));
+    }
 }

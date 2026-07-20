@@ -1,6 +1,5 @@
 package com.Sprout.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,20 +46,24 @@ public class BookingController {
 	@Autowired
     private  TodaysBookingService todaysBookingService;
     
-
-   /*public BookingController(BookingService bookingService, TodaysBookingService todaysBookingService) {
-        this.bookingService = bookingService;
-        this.todaysBookingService = todaysBookingService;
-   }*/
-    
-    
     	@GetMapping("/booking/{id}/view")
-        public String viewBooking(@PathVariable Long id, @RequestParam("location") String villageName, @RequestParam("farmerId") Integer farmerId, Model model) {
+        public String viewBooking(@PathVariable Long id, @RequestParam("location") String villageName, @RequestParam("farmerId") Integer farmerId, Model model, RedirectAttributes redirectAttributes) {
     
             Farmer farmer = farmerService.findById(farmerId);
             TodaysBooking todaysbooking = todaysBookingService.findById(id);
 
             Village farmerVillage = villageService.findByName(villageName);
+            if (farmerVillage == null) {
+                // The farmer typed this location freely when booking, so it won't always
+                // match a village registered in the system. Without a matching village we
+                // can't look up its sector (and therefore can't find nearby owners/drivers),
+                // so send the admin back with a clear message instead of a 500 error.
+                redirectAttributes.addFlashAttribute("error",
+                    "\"" + villageName + "\" isn't a recognized village, so owners and drivers " +
+                    "in that area couldn't be found. Ask the farmer to confirm their location, " +
+                    "or add \"" + villageName + "\" as a registered village first.");
+                return "redirect:/todays-bookings/fetch";
+            }
             Sector farmerSector = farmerVillage.getSector();
 
             List<Owner> ownersInSameSector = ownerService.findOwnersBySector(farmerSector);
@@ -111,9 +114,7 @@ public class BookingController {
     	    Farmer farmer = farmerService.findById(farmerId);
     	    System.out.println(
     	    	"Farmer details: "	+ farmer.getName());
-    	   
     	    
-    	   
     	    Booking booking = new Booking();
     	    booking.setBookingDate(bookingDate); 
     	    booking.setBookingTime(bookingTime);

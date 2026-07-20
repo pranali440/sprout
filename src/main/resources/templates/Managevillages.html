@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Villages - SPROUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#D8F3DC] min-h-screen">
+    <!-- Header -->
+    <header class="bg-[#1B4332] text-white py-6 shadow-md relative">
+        <a href="/admin/admindash" class="absolute left-4 top-1/2 -translate-y-1/2 text-[#95D5B2] hover:text-white text-sm font-semibold">&larr; Back to Dashboard</a>
+        <div class="container mx-auto text-center px-4">
+            <span class="text-2xl font-extrabold tracking-wide">SPROUT</span>
+            <h1 class="text-lg font-semibold text-[#D8F3DC] mt-1">Manage Villages &amp; Sectors</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-10 px-4">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
+            <!-- Add Sector -->
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-base font-bold text-[#1B4332] mb-4">➕ Add Sector</h2>
+                <form th:action="@{/admin/admindash/villages/addSector}" method="post" class="flex gap-3">
+                    <input type="text" name="sectorName" placeholder="Sector name" required
+                           class="flex-1 border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]">
+                    <button type="submit" class="bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-semibold px-5 rounded-lg transition">Add</button>
+                </form>
+                <p class="text-xs text-gray-500 mt-2">A sector groups nearby villages so owners/drivers can be matched to bookings from those villages.</p>
+            </div>
+
+            <!-- Add Village -->
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-base font-bold text-[#1B4332] mb-4">➕ Add Village</h2>
+                <form th:action="@{/admin/admindash/villages/addVillage}" method="post" class="space-y-3">
+                    <input type="text" name="villageName" placeholder="Village name" required
+                           class="w-full border border-gray-300 rounded-lg py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B4332]">
+                    <div class="flex gap-3">
+                        <select name="sectorId" required class="flex-1 border border-gray-300 rounded-lg py-2.5 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#1B4332]">
+                            <option value="" disabled selected>Select a sector</option>
+                            <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.name}"></option>
+                        </select>
+                        <button type="submit" class="bg-[#1B4332] hover:bg-[#2d6a4f] text-white font-semibold px-5 rounded-lg transition">Add</button>
+                    </div>
+                    <p th:if="${#lists.isEmpty(sectors)}" class="text-xs text-red-600">Add a sector first before adding a village.</p>
+                </form>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-md p-8">
+            <h2 class="text-lg font-bold text-[#1B4332] mb-5 pb-2 border-b border-[#D8F3DC]">🏘️ Registered Villages</h2>
+
+            <div th:if="${#lists.isEmpty(villages)}" class="text-center py-10 text-gray-500">
+                No villages added yet. Farmers won't be able to select a location until at least one exists.
+            </div>
+
+            <div th:unless="${#lists.isEmpty(villages)}" class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-[#1B4332] text-white text-sm">
+                            <th class="px-4 py-3 rounded-l-lg font-semibold">Village</th>
+                            <th class="px-4 py-3 rounded-r-lg font-semibold">Sector</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                        <tr th:each="village : ${villages}" class="hover:bg-[#D8F3DC]/40 transition">
+                            <td class="px-4 py-3" th:text="${village.name}"></td>
+                            <td class="px-4 py-3" th:text="${village.sector != null ? village.sector.name : '—'}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center text-sm text-[#1B4332] py-8">
+        &copy; 2026 SPROUT. All rights reserved.
+    </footer>
+</body>
+</html>

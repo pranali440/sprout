@@ -23,5 +23,8 @@ public class VillageService {
     public Village findByName(String villageName) {
         return villageRepository.findByName(villageName);
     }
-}
 
+    public java.util.List<Village> getAllVillages() {
+        return villageRepository.findAll(org.springframework.data.domain.Sort.by("name"));
+    }
+}
